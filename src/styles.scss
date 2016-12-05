@@ -1,0 +1,43 @@
+@import '../node_modules/normalize.css/normalize.css';
+@import '../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
+a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+[md-button] {
+  background-color: #ffffff;
+}
+
+md-input {
+  width: 100%;
+}
+
+.flex-block {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-block-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex {
+  flex: 1;
+}

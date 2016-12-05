@@ -1,0 +1,18 @@
+<div class="internal-page">
+    <md-toolbar color="primary">
+        <span>Drawing...</span>
+        <span class="flex"></span>
+        <span class="account-info">Hi, Vik</span>
+        <button md-button color="primary" (click)="signOut()">Sign out</button>
+    </md-toolbar>
+    <div class="content">
+        <md-card class="file" *ngFor="let file of files | async" [routerLink]="['/draw',{id: file.id}]">
+            <md-card-title>{{file.name}}</md-card-title>
+        </md-card>
+        <md-card class="file add" (click)="add()">
+            <md-card-content>
+                <md-icon>add</md-icon>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
