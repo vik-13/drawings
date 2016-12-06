@@ -7,7 +7,7 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 @Component({
     selector: 'dashboard',
     templateUrl: './dashboard.html',
-    styleUrls: ['./dashboard.css'],
+    styleUrls: ['./dashboard.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
