@@ -11,7 +11,7 @@ export default class Draw {
     paint: Paint;
     render: Render;
 
-    constructor(canvasId) {
+    constructor(canvasId: String, data: any) {
         this.canvasId = canvasId;
 
         this.mouse = {
@@ -19,10 +19,10 @@ export default class Draw {
             y: 0
         };
 
-        this.layouts = new Layouts();
+        this.layouts = new Layouts(data);
         this.interact = new Interact(this.mouse);
-        this.paint = new Paint(this.layouts, this.interact, this.mouse);
-        this.render = new Render(this.canvasId, this.layouts, this.paint, this.interact);
+        this.paint = new Paint(data, this.interact, this.mouse);
+        this.render = new Render(this.canvasId, data, this.paint, this.interact);
 
         this.lifeCycle();
     }

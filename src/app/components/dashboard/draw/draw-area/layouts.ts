@@ -1,34 +1,36 @@
-import {AngularFire, FirebaseListObservable} from "angularfire2";
-
 export default class Layouts {
-    layouts: FirebaseListObservable<any>;
-    currentLayout: Number = 0;
-    af: any = AngularFire;
+    data: any;
+    layouts: any;
+    layout: any;
+    dots: any;
 
-    constructor() {
-        this.layouts = this.af.database.list('/layouts');
-
-        // store.subscribe(() => {
-        //     var state = store.getState();
-        //     this.currentLayout = state.layout;
-        //     this.layouts = state.layouts;
+    constructor(data: any) {
+        console.log(firebase);
+        // firebase.database().ref('/layouts').once('value').then((snapshot) => {
+        //     console.log(snapshot.val());
         // });
+        this.data = data;
+        data.layouts
+            .subscribe(snapshots => {
+                snapshots.forEach(snapshot => {
+                    this.layout = snapshot.val();
+                });
+            });
     }
 
     push(x, y) {
-        if (!this.getCurrentLayout().dots) {
-            this.getCurrentLayout().dots = [];
+        let currentLayout = this.getCurrentLayout();
+        if (!currentLayout.dots) {
+            currentLayout.dots = [];
         }
-        this.getCurrentLayout().dots.push({
+        currentLayout.dots.push({
             x: x,
             y: y
         });
-        this.store();
     }
 
     pushAfterIndex(index, x, y) {
         this.getCurrentLayout().dots.splice(index + 1, 0, {x: x, y: y});
-        this.store();
     }
 
     move(x, y, index) {
@@ -37,23 +39,14 @@ export default class Layouts {
         }
         this.getCurrentLayout().dots[index].x = x;
         this.getCurrentLayout().dots[index].y = y;
-        this.store();
     }
 
     removeDot(index) {
         this.getCurrentLayout().dots.splice(index, 1);
     }
 
-    store() {
-        //storeDotsAction(store, this.getCurrentLayout().dots);
-    }
-
-    getLayouts() {
-        return this.layouts;
-    }
-
     getCurrentLayout() {
-        return this.layouts[0];
+        return this.layout;
     }
 
 }

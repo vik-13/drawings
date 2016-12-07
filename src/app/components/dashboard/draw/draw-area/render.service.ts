@@ -1,34 +1,34 @@
-import Layouts from "./layouts";
-import Paint from "./paint";
-import Interact from "./interact";
-
-export default class Render {
+import {Injectable} from "@angular/core";
+import {InteractService} from "./interact.service";
+import {PaintService} from "./paint.service";
+import {AngularFire} from "angularfire2";
+@Injectable()
+export class RenderService {
     canvas: any;
     context: any;
-    layouts: Layouts;
-    paint: Paint;
-    interact: Interact;
 
-    constructor(canvasId, Layouts, Paint, Interact) {
-        console.log(canvasId, document.getElementById(canvasId));
-        this.canvas = document.getElementById(canvasId);
+    constructor(public af: AngularFire, public interactService: InteractService, public paintService: PaintService) {
+        af.database.list('/layouts', {preserveSnapshot: true}).subscribe((snapshots) => {
+            this.clean();
+            snapshots.forEach(snapshot => {
+                this.renderLayout(snapshot.val(), false);
+            });
+        });
+    }
+
+    init() {
+        this.canvas = document.getElementById('draw-area');
         this.context = this.canvas.getContext('2d');
-        this.layouts = Layouts;
-        this.paint = Paint;
-        this.interact = Interact;
     }
 
     update() {
-        this.clean();
-
-        this.interact.clean();
-
         this.renderLayouts();
-
-        this.drawActives(this.interact.getActives());
+        this.drawActives(this.interactService.getActives());
     }
 
     clean() {
+        this.interactService.clean();
+
         this.context.fillStyle = '#ffffff';
         this.context.fillRect(0, 0, this.canvas.clientWidth, this.canvas.clientHeight);
     }
@@ -37,7 +37,7 @@ export default class Render {
         let layouts = [];
         layouts.forEach((layout) => {
             if (layout.dots && layout.dots.length >= 1 && layout.visibility) {
-                this.renderLayout(layout, layout == this.layouts.getCurrentLayout());
+                this.renderLayout(layout, false);
             }
         });
     }
@@ -106,10 +106,10 @@ export default class Render {
         path.closePath();
 
         if (interaction) {
-            if (this.paint.tool == 'split') {
-                this.interact.line(from, to, index, this.context, path);
-            } else if (this.paint.tool == 'move' || this.paint.tool == 'remove') {
-                this.interact.dot(to, index);
+            if (this.paintService.tool == 'split') {
+                this.interactService.line(from, to, index, this.context, path);
+            } else if (this.paintService.tool == 'move' || this.paintService.tool == 'remove') {
+                this.interactService.dot(to, index);
             }
         }
 

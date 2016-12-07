@@ -19,7 +19,7 @@ export class DashboardComponent {
     }
 
     add() {
-        this.files.push({name: 'Untitled file...', id: 'file_id'});
+        this.files.push({id: 'file_id', name: 'Untitled file...'});
     }
 
     signOut() {
