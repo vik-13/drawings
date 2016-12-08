@@ -3,7 +3,7 @@ import {CommonModule} from "@angular/common";
 import {PaintService} from "./paint.service";
 import {InteractService} from "./interact.service";
 import {MouseService} from "./mouse.service";
-import {LayoutsService} from "./layouts.service";
+import {LayoutService} from "./layout.service";
 import {RenderService} from "./render.service";
 
 @NgModule({
@@ -14,7 +14,7 @@ import {RenderService} from "./render.service";
         PaintService,
         InteractService,
         MouseService,
-        LayoutsService,
+        LayoutService,
         RenderService
     ]
 })

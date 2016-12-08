@@ -1,4 +1,5 @@
 <div class="layouts">
     Here should be layouts...
     <div *ngFor="let item of list | async" (click)="show(item.$key)">{{item.name}}</div>
+    <div><span (click)="add()">Add layout</span></div>
 </div>

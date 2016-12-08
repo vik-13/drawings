@@ -1,18 +1,21 @@
 import {Injectable} from "@angular/core";
 import {InteractService} from "./interact.service";
-import {PaintService} from "./paint.service";
 import {AngularFire} from "angularfire2";
+import {LayoutService} from "./layout.service";
 @Injectable()
 export class RenderService {
     canvas: any;
     context: any;
+    snapshots: any;
 
-    constructor(public af: AngularFire, public interactService: InteractService, public paintService: PaintService) {
+    //TODO: Should be moved to firebase...
+    tool: string = 'line';
+
+    constructor(public af: AngularFire, public interactService: InteractService, public layoutService: LayoutService) {
         af.database.list('/layouts', {preserveSnapshot: true}).subscribe((snapshots) => {
-            this.clean();
-            snapshots.forEach(snapshot => {
-                this.renderLayout(snapshot.val(), false);
-            });
+            console.log('layouts are updated... render service...');
+            this.snapshots = snapshots;
+            this.update();
         });
     }
 
@@ -22,6 +25,8 @@ export class RenderService {
     }
 
     update() {
+        this.clean();
+
         this.renderLayouts();
         this.drawActives(this.interactService.getActives());
     }
@@ -34,11 +39,8 @@ export class RenderService {
     }
 
     renderLayouts() {
-        let layouts = [];
-        layouts.forEach((layout) => {
-            if (layout.dots && layout.dots.length >= 1 && layout.visibility) {
-                this.renderLayout(layout, false);
-            }
+        this.snapshots.forEach(snapshot => {
+            this.renderLayout(snapshot.val(), snapshot.key == this.layoutService.layoutId);
         });
     }
 
@@ -88,7 +90,7 @@ export class RenderService {
         return rect;
     }
 
-    renderLine(from, to, index, interaction) {
+    renderLine(from, to, fromKey, toKey, interaction) {
         let path = new Path2D();
         let rect = this.calculateRectCoords(from, to);
 
@@ -106,10 +108,10 @@ export class RenderService {
         path.closePath();
 
         if (interaction) {
-            if (this.paintService.tool == 'split') {
-                this.interactService.line(from, to, index, this.context, path);
-            } else if (this.paintService.tool == 'move' || this.paintService.tool == 'remove') {
-                this.interactService.dot(to, index);
+            if (this.tool == 'split') {
+                this.interactService.line(from, to, fromKey, toKey, this.context, path);
+            } else if (this.tool == 'move' || this.tool == 'remove') {
+                this.interactService.dot(to, toKey);
             }
         }
 
@@ -117,20 +119,20 @@ export class RenderService {
     }
 
     renderLayout(layout, interaction) {
+        let item, prev, index = 0;
         this.context.save();
-        if (layout.dots.length == 1) {
-            this.drawDotCircle(layout.dots[0]);
-        } else {
-            layout.dots.forEach((to, index) => {
+        for (item in layout.dots) {
+            if (layout.dots.hasOwnProperty(item)) {
                 if (index) {
-                    let from = layout.dots[index - 1];
-                    this.renderLine(from, to, index, interaction);
+                    this.renderLine(layout.dots[prev], layout.dots[item], prev, item, interaction);
                 }
-            });
-            if (layout.endless) {
-                this.renderLine(layout.dots[layout.dots.length - 1], layout.dots[0], layout.dots.length, interaction);
+                prev = item;
+                index++;
             }
         }
+        // if (layout.endless) {
+        //     this.renderLine(layout.dots[layout.dots.length - 1], layout.dots[0], layout.dots.length, interaction);
+        // }
         this.context.restore();
     }
 

@@ -1,0 +1,28 @@
+{
+    "USER_ID": {
+        "files": [
+            {"name": "Tree", "id": "FILE_ID"},
+            {"name": "Leaf", "id": "FILE_ID2"}
+        ],
+        "drawings": {
+            "FILE_ID": {
+                "selectedLayout": "LAYOUT_ID",
+                "tool": "line",
+                "layouts": [
+                    {
+                        "name": "Layout 1",
+                        "visibility": true,
+                        "dots": [
+                            {"x": 0, "y": 0},
+                            {"x": 1, "y": 1}
+                        ]
+                    },
+                    {
+                        "name": "Layout 2",
+                        "visibility": true
+                    }
+                ]
+            }
+        }
+    }
+}

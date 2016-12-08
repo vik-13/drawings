@@ -8,10 +8,11 @@ import {
 } from '@angular/router';
 
 import {Observable} from "rxjs";
+import {AuthService} from "../../auth/auth.service";
 
 @Injectable()
 export class DashboardAuth implements CanActivate {
-    constructor(private af: AngularFire, private router: Router) {}
+    constructor(private af: AngularFire, private router: Router, public authService: AuthService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.af.auth.map((auth) =>  {
@@ -19,6 +20,7 @@ export class DashboardAuth implements CanActivate {
                 this.router.navigate(['/account/sign-in']);
                 return false;
             } else {
+                this.authService.set(auth.uid);
                 return true;
             }
         }).first()

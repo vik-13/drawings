@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {LayoutsService} from "./layouts.service";
+import {LayoutService} from "./layout.service";
 import {MouseService} from "./mouse.service";
 import {InteractService} from "./interact.service";
+import {RenderService} from "./render.service";
 @Injectable()
 export class PaintService {
     mouse: any;
@@ -11,12 +12,15 @@ export class PaintService {
         index: -1
     };
 
-    constructor(public layoutsService: LayoutsService, public mouseService: MouseService, public interactService: InteractService) {
+    constructor(public layoutService: LayoutService,
+                public mouseService: MouseService,
+                public interactService: InteractService,
+                public renderService: RenderService) {
         this.mouse = mouseService.position;
     }
 
     split(from) {
-        this.layoutsService.pushAfterIndex(from.index, this.mouse.x, this.mouse.y);
+        this.layoutService.pushAfterIndex(from.index, this.mouse.x, this.mouse.y);
     }
 
     down() {
@@ -36,8 +40,9 @@ export class PaintService {
 
     move() {
         if (this.movement.isActive) {
-            this.layoutsService.move(this.mouse.x, this.mouse.y, this.movement.index);
+            this.layoutService.move(this.mouse.x, this.mouse.y, this.movement.index);
         }
+        this.renderService.update();
     }
 
     up() {
@@ -49,7 +54,7 @@ export class PaintService {
                 this.movement.index = -1;
                 return;
             case 'line':
-                this.layoutsService.push(this.mouse.x, this.mouse.y);
+                this.layoutService.push(this.mouse.x, this.mouse.y);
                 return;
             case 'split':
                 if (actives.length == 2) {
@@ -57,7 +62,7 @@ export class PaintService {
                 }
                 return;
             case 'remove':
-                this.layoutsService.removeDot(actives[0].index);
+                this.layoutService.removeDot(actives[0].index);
                 return;
             default:
                 return;

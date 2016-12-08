@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {PaintService} from "./paint.service";
 import {MouseService} from "./mouse.service";
-import {LayoutsService} from "./layouts.service";
 import {RenderService} from "./render.service";
 
 @Component({
