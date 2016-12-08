@@ -1,3 +1,6 @@
 <div class="tools">
-    Here should be tools...
+    <h3>Tools</h3>
+    <div class="tool" [class.active]="tool == 'line'" (click)="set('line')">Line</div>
+    <div class="tool" [class.active]="tool == 'move'" (click)="set('move')">Move</div>
+    <div class="tool" [class.active]="tool == 'remove'" (click)="set('remove')">Remove</div>
 </div>

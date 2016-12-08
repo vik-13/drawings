@@ -1,9 +1,7 @@
 import {Component} from "@angular/core";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
-import {LayoutService} from "../draw-area/layout.service";
 import {AuthService} from "../../../../auth/auth.service";
 import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'layouts',
@@ -19,7 +17,6 @@ export class LayoutsComponent {
     list: FirebaseListObservable<any>;
 
     constructor(public af: AngularFire,
-                public layoutService:LayoutService,
                 public authService: AuthService,
                 public activatedRoute: ActivatedRoute) {
 
@@ -44,7 +41,6 @@ export class LayoutsComponent {
     }
 
     show(id) {
-        this.layoutService.set(id);
         this.file.update({selectedLayout: id});
         this.selectedLayout = id;
     }

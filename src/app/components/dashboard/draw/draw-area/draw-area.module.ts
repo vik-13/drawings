@@ -5,12 +5,14 @@ import {InteractService} from "./interact.service";
 import {MouseService} from "./mouse.service";
 import {LayoutService} from "./layout.service";
 import {RenderService} from "./render.service";
+import {DrawAreaService} from "./draw-area.service";
 
 @NgModule({
     imports: [
         CommonModule
     ],
     providers: [
+        DrawAreaService,
         PaintService,
         InteractService,
         MouseService,

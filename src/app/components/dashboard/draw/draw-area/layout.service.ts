@@ -1,24 +1,29 @@
 import {Injectable} from "@angular/core";
-import {AngularFire} from "angularfire2";
+import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
+import {AuthService} from "../../../../auth/auth.service";
+import {DrawAreaService} from "./draw-area.service";
 
 @Injectable()
 export class LayoutService {
+    fileId: string = '';
+    userId: string = '';
     layoutId: string = '';
-    dots: any;
 
-    constructor(public af: AngularFire) {
-        this.update();
-    }
+    file: FirebaseObjectObservable<any>;
+    dots: FirebaseListObservable<any>;
 
-    update() {
-        if (this.layoutId) {
-            this.dots = this.af.database.list('/layouts/' + this.layoutId + '/dots');
-        }
-    }
+    constructor(public af: AngularFire, public authService: AuthService, public drawAreaService: DrawAreaService) {
+        this.userId = this.authService.get();
+        drawAreaService.fileId.subscribe(fileId => {
+            this.fileId = fileId;
+            this.file = af.database.object('/' + this.userId + '/drawings/' + this.fileId, {preserveSnapshot: true});
 
-    set(layoutId) {
-        this.layoutId = layoutId;
-        this.update();
+            this.file.subscribe((snapshot) => {
+                let file = snapshot.val();
+                this.layoutId = file.selectedLayout;
+                this.dots = af.database.list('/' + this.userId + '/drawings/' + this.fileId + '/layouts/' + this.layoutId + '/dots');
+            })
+        });
     }
 
     push(x, y) {

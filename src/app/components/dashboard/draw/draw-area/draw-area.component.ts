@@ -2,6 +2,8 @@ import {Component} from "@angular/core";
 import {PaintService} from "./paint.service";
 import {MouseService} from "./mouse.service";
 import {RenderService} from "./render.service";
+import {ActivatedRoute} from "@angular/router";
+import {DrawAreaService} from "./draw-area.service";
 
 @Component({
     selector: 'draw-area',
@@ -11,7 +13,14 @@ import {RenderService} from "./render.service";
 
 export class DrawAreaComponent {
 
-    constructor(public paintService: PaintService, public mouseService: MouseService, public renderService: RenderService) {}
+    constructor(public paintService: PaintService,
+                public mouseService: MouseService,
+                public renderService: RenderService,
+                public activatedRoute: ActivatedRoute, public drawAreaService: DrawAreaService) {
+        activatedRoute.params.subscribe((params) => {
+            drawAreaService.setFileId(params['id']);
+        });
+    }
 
     updateMouse(event) {
         this.mouseService.position.x = event.clientX - event.currentTarget.offsetLeft - event.currentTarget.offsetParent.offsetLeft;

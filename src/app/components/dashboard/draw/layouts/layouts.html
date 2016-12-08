@@ -1,5 +1,5 @@
 <div class="layouts">
-    Here should be layouts...
+    <h3>Layouts</h3>
     <div *ngFor="let item of list | async" (click)="show(item.$key)" [class.active]="selectedLayout == item.$key">{{item.name}}</div>
     <div><span (click)="add()">Add layout</span></div>
 </div>
