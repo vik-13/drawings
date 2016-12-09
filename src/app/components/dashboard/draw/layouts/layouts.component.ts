@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewEncapsulation} from "@angular/core";
 import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
 import {AuthService} from "../../../../auth/auth.service";
 import {ActivatedRoute} from "@angular/router";
@@ -6,7 +6,8 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
     selector: 'layouts',
     templateUrl: './layouts.html',
-    styleUrls: ['./layouts.scss']
+    styleUrls: ['./layouts.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class LayoutsComponent {
@@ -38,6 +39,10 @@ export class LayoutsComponent {
             this.file.update({selectedLayout: response.key});
             this.selectedLayout = response.key;
         });
+    }
+
+    changeVisibility(id, visibility) {
+        this.list.update(id, {visibility: visibility});
     }
 
     show(id) {
