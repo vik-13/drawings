@@ -21,6 +21,29 @@
             &.link {
                 cursor: pointer;
             }
+
+            &.active {
+                .md-list-item {
+                    background-color: #f3f3f3;
+                }
+            }
+
+            md-checkbox {
+                transition: none;
+
+                .md-checkbox-frame {
+                    transition: none;
+                }
+
+                .md-checkbox-background {
+                    transition: none;
+                    animation: none;
+                }
+
+                .md-checkbox-checkmark-path {
+                    animation: none;
+                }
+            }
         }
     }
 }

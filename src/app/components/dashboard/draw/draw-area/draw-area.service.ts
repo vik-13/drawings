@@ -19,7 +19,7 @@ export class DrawAreaService {
     setLayout(layoutId) {
         this.layoutId = layoutId;
 
-        this.dots = this.af.database.list('/' + this.userId + '/drawings/' + this.fileId + '/layouts/' + this.layoutId + '/dots');
+        this.dots = this.af.database.list('/drawings/' + this.fileId + '/layouts/' + this.layoutId + '/dots');
     }
 
     addDot(x, y) {

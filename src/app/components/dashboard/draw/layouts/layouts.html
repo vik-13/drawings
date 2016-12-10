@@ -5,7 +5,7 @@
                       (click)="show(item.$key)"
                       [class.active]="selectedLayout == item.$key">
             <p>
-                <md-checkbox [checked]="item.visibility" (change)="changeVisibility(item.$key, !item.visibility)"></md-checkbox>
+                <md-checkbox [checked]="item.visibility" (click)="changeVisibility($event, item.$key, !item.visibility)"></md-checkbox>
                 <span>{{item.name}}</span>
             </p>
         </md-list-item>

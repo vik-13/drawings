@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 
-import {MdListModule, MdCheckboxModule} from '@angular/material';
+import {
+    MdListModule,
+    MdCheckboxModule
+} from '@angular/material';
 
 import {DrawComponent} from './draw.component';
 import {LayoutsComponent} from "./layouts/layouts.component";

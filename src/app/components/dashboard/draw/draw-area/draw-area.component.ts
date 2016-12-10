@@ -34,6 +34,9 @@ export class DrawAreaComponent {
     file: FirebaseObjectObservable<any>;
     layoutsObservable: FirebaseListObservable<any>;
 
+    fileSubscribe: any;
+    layoutsSubscribe: any;
+
     layouts: Array<any> = [];
 
     constructor(public af: AngularFire,
@@ -44,15 +47,16 @@ export class DrawAreaComponent {
             this.fileId = params['id'];
             this.drawAreaService.init(this.userId, this.fileId);
 
-            this.file = af.database.object('/' + this.userId + '/drawings/' + this.fileId, {preserveSnapshot: true});
-            this.file.subscribe(snapshot => {
-                this.selectedLayout = snapshot.val().selectedLayout;
-                this.tool = snapshot.val().tool;
+            this.file = af.database.object('/drawings/' + this.fileId, {preserveSnapshot: true});
+            this.fileSubscribe = this.file.subscribe(snapshot => {
+                let file = snapshot.val();
+                this.selectedLayout = file ? file.selectedLayout : '';
+                this.tool = file ? file.tool : '';
                 this.drawAreaService.setLayout(this.selectedLayout);
             });
 
-            this.layoutsObservable = af.database.list('/' + this.userId + '/drawings/' + this.fileId + '/layouts', {preserveSnapshot: true});
-            this.layoutsObservable.subscribe(snapshots => {
+            this.layoutsObservable = af.database.list('/drawings/' + this.fileId + '/layouts', {preserveSnapshot: true});
+            this.layoutsSubscribe = this.layoutsObservable.subscribe(snapshots => {
                 this.layouts.length = 0;
                 snapshots.forEach(snapshot => {
                     let value = snapshot.val(), dot, i, next,
@@ -109,7 +113,9 @@ export class DrawAreaComponent {
         this.mouse.x = event.offsetX;
         this.mouse.y = event.offsetY;
         if (event.button == 0) {
-            this.drawAreaService.addDot(this.mouse.x, this.mouse.y);
+            if (this.selectedLayout) {
+                this.drawAreaService.addDot(this.mouse.x, this.mouse.y);
+            }
         } else {
             this.move.last.x = this.mouse.x;
             this.move.last.y = this.mouse.y;
@@ -139,5 +145,10 @@ export class DrawAreaComponent {
             this.move.active = false;
             this.move.isLayout = false;
         }
+    }
+
+    ngOnDestroy() {
+        this.fileSubscribe.unsubscribe();
+        this.layoutsSubscribe.unsubscribe();
     }
 }

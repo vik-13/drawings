@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
     selector: 'dashboard',
@@ -14,19 +14,27 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 export class DashboardComponent {
     userId: string = '';
     files: FirebaseListObservable<any>;
+    drawings: FirebaseObjectObservable<any>;
 
     constructor (public authService: AuthService, public af: AngularFire, public router: Router) {
         this.userId = this.authService.get();
-        this.files = af.database.list('/' + this.userId + '/files');
+        this.files = af.database.list('/users/' + this.userId + '/files');
     }
 
     add() {
         let fileId = this.generateUniqueId();
         this.files.push({id: fileId, name: 'Untitled file...'});
-        this.af.database.object('/' + this.userId + '/drawings/' + fileId).set({
+        this.af.database.object('/drawings/' + fileId).set({
+            owner: this.userId,
             selectedLayout: '',
             tool: 'line'
         });
+    }
+
+    remove(event, key, fileId) {
+        event.stopPropagation();
+        this.files.remove(key);
+        this.af.database.object('/drawings/' + fileId).remove();
     }
 
     signOut() {

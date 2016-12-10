@@ -6,9 +6,10 @@
         <button md-button color="primary" (click)="signOut()">Sign out</button>
     </md-toolbar>
     <div class="content">
-        <md-card class="file" *ngFor="let file of files | async" [routerLink]="['/draw', file.id]">
-            <md-card-title>{{file.name}}</md-card-title>
-        </md-card>
+        <div class="card" *ngFor="let file of files | async" [routerLink]="['/draw', file.id]">
+            <h3>{{file.name}}</h3>
+            <span class="remove-link" (click)="remove($event, file.$key, file.id)"><md-icon>delete</md-icon></span>
+        </div>
         <md-card class="file add" (click)="add()">
             <md-card-content>
                 <md-icon>add</md-icon>
