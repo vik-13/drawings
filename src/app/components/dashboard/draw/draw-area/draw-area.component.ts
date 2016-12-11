@@ -39,6 +39,7 @@ export class DrawAreaComponent {
 
     drawingSubscribe: any;
     layoutsSubscribe: any;
+    sharedSubscribe: any;
 
     layouts: Array<any> = [];
 
@@ -49,12 +50,12 @@ export class DrawAreaComponent {
         activatedRoute.params.subscribe((params) => {
             let id = params['id'];
             if (params['shared']) {
-                let subscriber = af.database.object('/shared/' + id, {preserveSnapshot: true}).subscribe((snapshot) => {
+                this.sharedSubscribe = af.database.object('/shared/' + id, {preserveSnapshot: true}).subscribe((snapshot) => {
                     let shared = snapshot.val();
                     this.userId = shared.ownerId;
                     this.drawingId = shared.drawingId;
                     this.connect();
-                    subscriber.unsubscribe();
+                    this.sharedSubscribe.unsubscribe();
                 });
             } else {
                 this.userId = this.authService.get();
@@ -71,8 +72,8 @@ export class DrawAreaComponent {
         this.drawingSubscribe = this.drawing.subscribe(snapshot => {
             let drawing = snapshot.val();
             this.selectedLayout = drawing ? drawing.selectedLayout : '';
-            this.size.width = drawing.width;
-            this.size.height = drawing.height;
+            this.size.width = drawing ? drawing.width : 0;
+            this.size.height = drawing ? drawing.height : 0;
             this.drawAreaService.setLayout(this.selectedLayout);
         });
 
