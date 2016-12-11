@@ -9,6 +9,7 @@ export const DashboardRoutes: Routes = [{
     canActivate: [ DashboardAuth ],
     children: [
         {path: '', component: DashboardComponent},
-        {path: 'draw/:id', component: DrawComponent}
+        {path: 'draw/:id', component: DrawComponent},
+        {path: 'draw/:id/:shared', component: DrawComponent}
     ]
 }];

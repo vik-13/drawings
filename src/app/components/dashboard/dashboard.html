@@ -1,19 +1,26 @@
 <div class="internal-page">
     <md-toolbar color="primary">
-        <span>Drawing...</span>
+        <span>Drawings</span>
         <span class="flex"></span>
-        <span class="account-info">Hi, Vik</span>
+        <span class="account-info">Hi, {{userName}}</span>
         <button md-button color="primary" (click)="signOut()">Sign out</button>
     </md-toolbar>
     <div class="content">
-        <div class="card" *ngFor="let file of files | async" [routerLink]="['/draw', file.id]">
-            <h3>{{file.name}}</h3>
-            <span class="remove-link" (click)="remove($event, file.$key, file.id)"><md-icon>delete</md-icon></span>
+        <div class="title flex-block align-items-center">
+            <h2>My</h2>
+            <div class="flex"></div>
+            <button md-fab color="primary" (click)="add()"><md-icon>add</md-icon></button>
         </div>
-        <md-card class="file add" (click)="add()">
-            <md-card-content>
-                <md-icon>add</md-icon>
-            </md-card-content>
-        </md-card>
+        <drawing-item [drawing]="drawing"
+                      (onRemove)="remove($event)"
+                      (onShare)="share($event)"
+                      (onUnShare)="unShare($event)"
+                      *ngFor="let drawing of drawings | async"></drawing-item>
+
+        <div class="title flex-block align-items-center">
+            <h2>Shared</h2>
+        </div>
+        <shared-drawing-item [shared]="shared"
+                      *ngFor="let shared of sharedDrawings | async"></shared-drawing-item>
     </div>
 </div>

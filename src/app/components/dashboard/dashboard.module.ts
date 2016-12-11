@@ -14,6 +14,8 @@ import {
 import {DashboardAuth} from './dashboard.auth';
 import {DashboardComponent} from './dashboard.component';
 import {DrawModule} from "./draw/draw.module";
+import {DrawingItemComponent} from "./drawing-item/drawing-item.component";
+import {SharedDrawingItemComponent} from "./shared-drawing-item/shared-drawing-item.component";
 
 @NgModule({
     imports: [
@@ -28,7 +30,9 @@ import {DrawModule} from "./draw/draw.module";
         MdSidenavModule
     ],
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        DrawingItemComponent,
+        SharedDrawingItemComponent
     ],
     providers: [
         DashboardAuth

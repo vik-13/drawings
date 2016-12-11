@@ -4,22 +4,22 @@ import {FirebaseListObservable, AngularFire} from "angularfire2";
 @Injectable()
 export class DrawAreaService {
     userId: string;
-    fileId: string;
+    drawingId: string;
     layoutId: string;
 
     dots: FirebaseListObservable<any>;
 
     constructor(public af: AngularFire) {}
 
-    init(userId, fileId) {
+    init(userId, drawingId) {
         this.userId = userId;
-        this.fileId = fileId;
+        this.drawingId = drawingId;
     }
 
     setLayout(layoutId) {
         this.layoutId = layoutId;
 
-        this.dots = this.af.database.list('/drawings/' + this.fileId + '/layouts/' + this.layoutId + '/dots');
+        this.dots = this.af.database.list('/users/' + this.userId + '/drawings/' + this.drawingId + '/layouts/' + this.layoutId + '/dots');
     }
 
     addDot(x, y) {

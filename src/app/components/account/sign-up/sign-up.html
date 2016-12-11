@@ -1,16 +1,21 @@
-<md-card>
-    <md-card-title>Sign up</md-card-title>
-    <md-card-content>
-        <div class="form-container">
-            <md-input placeholder="Email"></md-input>
-        </div>
-        <div class="form-container">
-            <md-input placeholder="Password"></md-input>
-        </div>
-    </md-card-content>
-    <md-card-actions class="auth-actions flex-block">
-        <a routerLink="/account/sign-in">Sign in</a>
-        <div class="flex"></div>
-        <button md-raised-button color="primary">Sign up</button>
-    </md-card-actions>
-</md-card>
+<form (submit)="signUp($event, form.value)" #form="ngForm" novalidate autocomplete="off">
+    <md-card>
+        <md-card-title>Registration</md-card-title>
+        <md-card-content>
+            <div class="form-container">
+                <md-input ngModel name="name" placeholder="Your name" required></md-input>
+            </div>
+            <div class="form-container">
+                <md-input ngModel name="email" placeholder="Email" required></md-input>
+            </div>
+            <div class="form-container">
+                <md-input ngModel type="password" name="password" placeholder="Password" required></md-input>
+            </div>
+        </md-card-content>
+        <md-card-actions class="auth-actions flex-block">
+            <a [routerLink]="['/account/sign-in']">Sign in</a>
+            <div class="flex"></div>
+            <button md-raised-button color="primary" [disabled]="!form.valid">Sign up</button>
+        </md-card-actions>
+    </md-card>
+</form>

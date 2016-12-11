@@ -11,34 +11,49 @@ import {ActivatedRoute} from "@angular/router";
 })
 
 export class LayoutsComponent {
-    fileId: string = '';
+    drawingId: string = '';
     userId: string = '';
     selectedLayout: string = '';
-    file: FirebaseObjectObservable<any>;
+    drawing: FirebaseObjectObservable<any>;
     list: FirebaseListObservable<any>;
 
-    fileSubscribe: any;
+    drawingSubscribe: any;
 
     constructor(public af: AngularFire,
                 public authService: AuthService,
                 public activatedRoute: ActivatedRoute) {
 
-        this.userId = this.authService.get();
         activatedRoute.params.subscribe((params) => {
-            this.fileId = params['id'];
-            this.file = af.database.object('/drawings/' + this.fileId, {preserveSnapshot: true});
-            this.list = af.database.list('/drawings/' + this.fileId + '/layouts');
+            let id = params['id'];
+            if (params['shared']) {
+                let subscriber = af.database.object('/shared/' + id, {preserveSnapshot: true}).subscribe((snapshot) => {
+                    let shared = snapshot.val();
+                    this.userId = shared.ownerId;
+                    this.drawingId = shared.drawingId;
+                    this.connect(this.userId, this.drawingId);
+                    subscriber.unsubscribe();
+                });
+            } else {
+                this.userId = this.authService.get();
+                this.drawingId = id;
+                this.connect(this.userId, this.drawingId);
+            }
+        });
+    }
 
-            this.fileSubscribe = this.file.subscribe((snapshot) => {
-                let file = snapshot.val();
-                this.selectedLayout = file ? file.selectedLayout : '';
-            })
+    connect(userId, drawingId) {
+        this.drawing = this.af.database.object('/users/' + userId + '/drawings/' + drawingId, {preserveSnapshot: true});
+        this.list = this.af.database.list('/users/' + userId + '/drawings/' + drawingId + '/layouts');
+
+        this.drawingSubscribe = this.drawing.subscribe((snapshot) => {
+            let drawing = snapshot.val();
+            this.selectedLayout = drawing ? drawing.selectedLayout : '';
         });
     }
 
     add() {
         this.list.push({name: 'Layout 2...', visibility: true}).then((response) => {
-            this.file.update({selectedLayout: response.key});
+            this.drawing.update({selectedLayout: response.key});
             this.selectedLayout = response.key;
         });
     }
@@ -49,11 +64,11 @@ export class LayoutsComponent {
     }
 
     show(id) {
-        this.file.update({selectedLayout: id});
+        this.drawing.update({selectedLayout: id});
         this.selectedLayout = id;
     }
 
     ngOnDestroy() {
-        this.fileSubscribe.unsubscribe();
+        this.drawingSubscribe.unsubscribe();
     }
 }

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouterModule} from '@angular/router';
 
-import { MaterialModule } from '@angular/material';
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import {MaterialModule} from '@angular/material';
+import {AngularFireModule, AuthProviders, AuthMethods} from 'angularfire2';
 
-import { appRoutes } from './app.routes';
+import {appRoutes} from './app.routes';
 
-import { AuthService } from './auth/auth.service';
+import {AuthService} from './auth/auth.service';
 
-import { AppComponent } from './app.component';
-import { AccountModule } from './components/account/account.module';
-import { DashboardModule } from './components/dashboard/dashboard.module';
+import {AppComponent} from './app.component';
+import {AccountModule} from './components/account/account.module';
+import {DashboardModule} from './components/dashboard/dashboard.module';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDfloWIpFJP7HHQCtvrsy4s8g31tmEdgqY",

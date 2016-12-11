@@ -13,50 +13,65 @@ import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'ang
 
 export class DashboardComponent {
     userId: string = '';
-    files: FirebaseListObservable<any>;
-    drawings: FirebaseObjectObservable<any>;
+    userName: string;
+
+    drawings: FirebaseListObservable<any>;
+    sharedDrawings: FirebaseListObservable<any>;
+
+    userObservable: any;
+    authObservable: any;
 
     constructor (public authService: AuthService, public af: AngularFire, public router: Router) {
         this.userId = this.authService.get();
-        this.files = af.database.list('/users/' + this.userId + '/files');
+        this.userObservable = af.database.object('/users/' + this.userId, {preserveSnapshot: true}).subscribe((snapshot) => {
+            this.userName = snapshot.val().name;
+        });
+        this.drawings = af.database.list('/users/' + this.userId + '/drawings');
+        this.sharedDrawings = af.database.list('/shared');
     }
 
     add() {
-        let fileId = this.generateUniqueId();
-        this.files.push({id: fileId, name: 'Untitled file...'});
-        this.af.database.object('/drawings/' + fileId).set({
+        this.drawings.push({
+            name: 'Untitled file...',
             owner: this.userId,
+            shared: false,
             selectedLayout: '',
-            tool: 'line'
+            width: 320,
+            height: 240
         });
     }
 
-    remove(event, key, fileId) {
-        event.stopPropagation();
-        this.files.remove(key);
-        this.af.database.object('/drawings/' + fileId).remove();
+    share(key: string) {
+        this.sharedDrawings.push({drawingId: key, ownerId: this.userId}).then((response) => {
+            this.af.database.object('/users/' + this.userId + '/drawings/' + key).update({shared: response.key});
+        });
+    }
+
+    unShare(drawing: any) {
+        this.sharedDrawings.remove(drawing.shared);
+        this.af.database.object('/users/' + this.userId + '/drawings/' + drawing.$key).update({shared: false});
+    }
+
+    remove(drawing: any) {
+        if (drawing.shared) {
+            this.sharedDrawings.remove(drawing.shared);
+        }
+        this.drawings.remove(drawing.$key);
     }
 
     signOut() {
+        this.authObservable = this.af.auth.subscribe((auth) => {
+            if (!auth) {
+                this.router.navigate(['/account/sign-in']);
+            }
+        });
         this.authService.unAuth();
-        //TODO: Should be redirected to sign-in!!!
-        this.router.navigate(['/account/sign-in']);
     }
 
-    private generateUniqueId(): string {
-        let uniqueIdMask = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx',
-            uniqueId = '',
-            i, letter;
-        for(i = 0; i < uniqueIdMask.length; i++) {
-            letter = uniqueIdMask.substr(i, 1);
-            if (letter == 'x') {
-                uniqueId += (Math.floor(Math.random() * 16)).toString(16);
-            } else if (letter == 'y') {
-                uniqueId += ( 8 + Math.floor(Math.random() * 4)).toString(16);
-            } else {
-                uniqueId += letter;
-            }
+    ngOnDestroy() {
+        this.userObservable.unsubscribe();
+        if (this.authObservable) {
+            this.authObservable.unsubscribe();
         }
-        return uniqueId;
     }
 }

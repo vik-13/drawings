@@ -15,6 +15,10 @@ export class AuthService {
         return this.userId;
     }
 
+    create(data: any): any {
+        return this.af.auth.createUser(data);
+    }
+
     auth(data: any): any {
         return this.af.auth.login(data);
     }
