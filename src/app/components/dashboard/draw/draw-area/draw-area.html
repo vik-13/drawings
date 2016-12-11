@@ -1,6 +1,7 @@
 <div class="draw-area">
-    <svg width="320"
-         height="240"
+    {{drawing.width}}
+    <svg [attr.width]="size.width"
+         [attr.height]="size.height"
          oncontextmenu="return false;"
          (mousedown)="mouseDown($event)"
          (mousemove)="mouseMove($event)"

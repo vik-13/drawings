@@ -29,6 +29,10 @@ export class DrawAreaComponent {
     };
 
     selectedLayout: string = '';
+    size: any = {
+        width: 0,
+        height: 0
+    };
 
     drawing: FirebaseObjectObservable<any>;
     layoutsObservable: FirebaseListObservable<any>;
@@ -49,24 +53,26 @@ export class DrawAreaComponent {
                     let shared = snapshot.val();
                     this.userId = shared.ownerId;
                     this.drawingId = shared.drawingId;
-                    this.connect(this.userId, this.drawingId);
+                    this.connect();
                     subscriber.unsubscribe();
                 });
             } else {
                 this.userId = this.authService.get();
                 this.drawingId = id;
-                this.connect(this.userId, this.drawingId);
+                this.connect();
             }
         });
     }
 
-    connect(userId, drawingId) {
+    connect() {
         this.drawAreaService.init(this.userId, this.drawingId);
 
         this.drawing = this.af.database.object('/users/' + this.userId + '/drawings/' + this.drawingId, {preserveSnapshot: true});
         this.drawingSubscribe = this.drawing.subscribe(snapshot => {
             let drawing = snapshot.val();
             this.selectedLayout = drawing ? drawing.selectedLayout : '';
+            this.size.width = drawing.width;
+            this.size.height = drawing.height;
             this.drawAreaService.setLayout(this.selectedLayout);
         });
 

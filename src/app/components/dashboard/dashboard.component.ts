@@ -2,7 +2,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {MdDialog, MdDialogRef} from "@angular/material";
+import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component";
 
 @Component({
     selector: 'dashboard',
@@ -21,7 +23,12 @@ export class DashboardComponent {
     userObservable: any;
     authObservable: any;
 
-    constructor (public authService: AuthService, public af: AngularFire, public router: Router) {
+    dialogRef: MdDialogRef<DrawingDialogComponent>;
+
+    constructor (public authService: AuthService,
+                 public af: AngularFire,
+                 public router: Router,
+                 public dialog: MdDialog) {
         this.userId = this.authService.get();
         this.userObservable = af.database.object('/users/' + this.userId, {preserveSnapshot: true}).subscribe((snapshot) => {
             this.userName = snapshot.val().name;
@@ -31,13 +38,22 @@ export class DashboardComponent {
     }
 
     add() {
-        this.drawings.push({
-            name: 'Untitled file...',
-            owner: this.userId,
-            shared: false,
-            selectedLayout: '',
-            width: 320,
-            height: 240
+        this.dialogRef = this.dialog.open(DrawingDialogComponent, {
+            disableClose: false
+        });
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.drawings.push({
+                    name: result.name,
+                    owner: this.userId,
+                    shared: false,
+                    selectedLayout: '',
+                    width: +result.width,
+                    height: +result.height
+                });
+            }
+            this.dialogRef = null;
         });
     }
 
