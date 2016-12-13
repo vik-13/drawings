@@ -1,0 +1,21 @@
+<div class="add-card">
+    <form [formGroup]="form" (submit)="create(form)" novalidate autocomplete="off">
+        <h3>Create your own drawing...</h3>
+        <div class="form-container">
+            <label>Name:</label><input name="name" [formControl]="form.controls['name']" required/>
+        </div>
+        <div class="flex-block">
+            <div class="form-container flex">
+                <label>Width:</label><input name="width" [formControl]="form.controls['width']" required/>
+            </div>
+            <div class="form-container flex">
+                <label>Height:</label><input name="height" [formControl]="form.controls['height']" required/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a (click)="cancel()">Cancel</a>
+            <div class="flex"></div>
+            <button>Create</button>
+        </div>
+    </form>
+</div>

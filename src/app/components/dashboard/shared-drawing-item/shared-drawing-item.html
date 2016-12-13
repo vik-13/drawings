@@ -1,8 +1,19 @@
-<div class="card" [routerLink]="['/draw', sharedKey, 's']">
+<div class="card">
     <div class="card-header">
         <h3>{{drawing.name}}</h3>
         <span class="flex"></span>
         <h4>Shared by {{userName}}</h4>
     </div>
-    <div class="preview"></div>
+    <div class="preview" [routerLink]="['/draw', sharedKey, 's']">
+        <svg [attr.viewBox]="'0 0 ' + drawing.width + ' ' + drawing.height"
+             preserveAspectRatio>
+            <g *ngFor="let layout of layouts">
+                <line
+                    [attr.x1]="line.x1" [attr.y1]="line.y1"
+                    [attr.x2]="line.x2" [attr.y2]="line.y2"
+                    stroke="#34495e" stroke-width="1"
+                    *ngFor="let line of layout.lines"></line>
+            </g>
+        </svg>
+    </div>
 </div>

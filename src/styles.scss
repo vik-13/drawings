@@ -55,12 +55,14 @@ input {
         height: 36px;
         border: none;
         padding-left: 16px;
+        width: 100%;
     }
 }
 
 a {
     text-decoration: none;
     color: $color2;
+    cursor: pointer;
 
     &:hover {
         text-decoration: underline;

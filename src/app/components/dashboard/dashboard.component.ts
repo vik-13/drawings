@@ -3,8 +3,6 @@ import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {MdDialog, MdDialogRef} from "@angular/material";
-import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component";
 
 @Component({
     selector: 'dashboard',
@@ -17,18 +15,18 @@ export class DashboardComponent {
     userId: string = '';
     userName: string;
 
+    createMode: boolean = false;
+    sharedVisibility: boolean = true;
+
     drawings: FirebaseListObservable<any>;
     sharedDrawings: FirebaseListObservable<any>;
 
     userObservable: any;
     authObservable: any;
 
-    dialogRef: MdDialogRef<DrawingDialogComponent>;
-
     constructor (public authService: AuthService,
                  public af: AngularFire,
-                 public router: Router,
-                 public dialog: MdDialog) {
+                 public router: Router) {
         this.userId = this.authService.get();
         this.userObservable = af.database.object('/users/' + this.userId, {preserveSnapshot: true}).subscribe((snapshot) => {
             this.userName = snapshot.val().name;
@@ -45,25 +43,25 @@ export class DashboardComponent {
         });
     }
 
-    add() {
-        this.dialogRef = this.dialog.open(DrawingDialogComponent, {
-            disableClose: false
-        });
+    showCreationForm() {
+        this.createMode = true;
+    }
 
-        this.dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.drawings.push({
-                    name: result.name,
-                    owner: this.userId,
-                    created: 0 - +new Date(),
-                    shared: false,
-                    selectedLayout: '',
-                    width: +result.width,
-                    height: +result.height
-                });
-            }
-            this.dialogRef = null;
+    cancel() {
+        this.createMode = false;
+    }
+
+    add(data) {
+        this.drawings.push({
+            name: data.name,
+            owner: this.userId,
+            created: 0 - +new Date(),
+            shared: false,
+            selectedLayout: '',
+            width: +data.width,
+            height: +data.height
         });
+        this.createMode = false;
     }
 
     share(key: string) {

@@ -1,6 +1,6 @@
 <div class="internal-page">
     <div class="header">
-        <h1>Drawings...</h1>
+        <h1>Drawings</h1>
         <span class="flex"></span>
         <span class="account-info">{{userName}}</span>
         <a href (click)="signOut()">Sign out</a>
@@ -8,27 +8,28 @@
     <div class="content-container">
         <div class="content">
             <div class="title flex-block align-items-center">
-                <h2>My</h2>
+                <h2>My <span>Here is the list of your drawings...</span></h2>
                 <div class="flex"></div>
-                <button md-fab color="primary" (click)="add()"><md-icon>add</md-icon></button>
+                <button (click)="showCreationForm()">Create a new drawing</button>
             </div>
             <div class="drawings-container">
+                <div class="drawings-item" *ngIf="createMode">
+                    <add-drawing (onCancel)="cancel()"
+                                 (onCreate)="add($event)"></add-drawing>
+                </div>
                 <div class="drawings-item" *ngFor="let drawing of drawings | async">
                     <drawing-item [drawing]="drawing"
                                   (onRemove)="remove($event)"
                                   (onShare)="share($event)"
                                   (onUnShare)="unShare($event)"></drawing-item>
                 </div>
-                <div class="drawings-item">
-                    <div class="add-card">
-                        <a class="add-link"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="title flex-block align-items-center">
-                <h2>Shared</h2>
+                <h2>Shared <span>Here is the list of shared drawings by other people...</span></h2>
+                <div class="flex"></div>
+                <input type="checkbox" [(ngModel)]="sharedVisibility"/>
             </div>
-            <div class="drawings-container">
+            <div class="drawings-container" *ngIf="sharedVisibility">
                 <div class="drawings-item" *ngFor="let shared of sharedDrawings | async">
                     <shared-drawing-item [shared]="shared"></shared-drawing-item>
                 </div>

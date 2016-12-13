@@ -9,7 +9,7 @@ import {
     MdIconModule,
     MdButtonModule,
     MdSidenavModule,
-    MdDialogModule, MdInputModule
+    MdDialogModule, MdInputModule, MdSnackBarModule, MdSlideToggleModule
 } from '@angular/material';
 
 import {DashboardAuth} from './dashboard.auth';
@@ -18,6 +18,7 @@ import {DrawModule} from "./draw/draw.module";
 import {DrawingItemComponent} from "./drawing-item/drawing-item.component";
 import {SharedDrawingItemComponent} from "./shared-drawing-item/shared-drawing-item.component";
 import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component";
+import {AddDrawingComponent} from "./add-drawing/add-drawing.component";
 
 @NgModule({
     imports: [
@@ -32,11 +33,14 @@ import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component"
         MdInputModule,
         MdSidenavModule,
         MdDialogModule,
+        MdSnackBarModule,
+        MdSlideToggleModule,
         FormsModule,
         ReactiveFormsModule
     ],
     declarations: [
         DashboardComponent,
+        AddDrawingComponent,
         DrawingItemComponent,
         SharedDrawingItemComponent,
         DrawingDialogComponent

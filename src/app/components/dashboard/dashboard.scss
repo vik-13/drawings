@@ -14,10 +14,16 @@
         flex-direction: row;
         align-items: center;
         height: 64px;
-        background: #F2EBC7;
+        background-color: #F2EBC7;
 
         h1 {
+            font-size: 24px;
             margin: 0;
+            color: #348899;
+        }
+
+        a {
+            color: #962D3E;
         }
     }
 
@@ -34,6 +40,15 @@
 
             .title {
 
+                h2 {
+                    color: #348899;
+
+                    span {
+                        font-size: 13px;
+                        padding-left: 16px;
+                        font-weight: 100;
+                    }
+                }
             }
 
             .drawings-container {
@@ -41,6 +56,7 @@
                 flex-direction: row;
                 justify-content: flex-start;
                 flex-wrap: wrap;
+                min-height: 290px;
 
                 .drawings-item {
                     flex-grow: 0;
@@ -48,38 +64,6 @@
                     flex-basis: 360px;
                     height: 258px;
                     margin: 16px;
-
-                    .add-card {
-                        position: relative;
-                        box-sizing: border-box;
-                        opacity: 0.3;
-                        width: 100%;
-                        height: 100%;
-                        padding: 16px 16px 0 16px;
-                        background-color: #ffffff;
-                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-                        &:hover {
-                            opacity: 1;
-                        }
-
-                        .add-link {
-                            display: flex;
-                            width: 100%;
-                            height: 100%;
-                            flex-direction: row;
-                            align-items: center;
-                            justify-content: center;
-
-                            &:hover {
-                                text-decoration: none;
-                            }
-
-                            i {
-                                font-size: 96px;
-                            }
-                        }
-                    }
 
                     .card {
                         position: relative;
@@ -136,7 +120,12 @@
                         .preview {
                             height: 200px;
                             margin: 0 -16px;
-                            background-color: #348899;
+                            background-color: #ffffff;
+
+                            svg {
+                                width: 100%;
+                                height: 100%;
+                            }
                         }
                     }
                 }

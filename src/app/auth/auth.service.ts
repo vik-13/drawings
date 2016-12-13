@@ -24,6 +24,7 @@ export class AuthService {
     }
 
     unAuth(){
+        console.log('logout');
         return this.af.auth.logout();
     }
 }
