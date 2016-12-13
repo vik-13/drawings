@@ -1,46 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Lora');
+
 @import '../node_modules/normalize.css/normalize.css';
 @import '../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 
+$fa-font-path: "../node_modules/font-awesome/fonts";
+
+@import "../node_modules/font-awesome/scss/font-awesome";
+
 @import "assets/stylesheets/components/card";
 
+//$color1: #105B63;
+//$color2: #FFFAD5;
+//$color3: #FFD34E;
+//$color4: #DB9E36;
+//$color5: #BD4932;
+
+$color1: #962D3E;
+$color2: #343642;
+$color3: #979C9C;
+$color4: #F2EBC7;
+$color5: #348899;
+
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  font-family: Roboto, sans-serif;
+    font-family: 'Lora', serif;
+    background-color: $color4;
+    color: $color2;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input {
+    font-family: 'Lora', serif;
+    color: $color2;
+}
+
+.form-container {
+    border-bottom: 1px solid $color2;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    input {
+        flex: 1;
+        height: 36px;
+        border: none;
+        padding-left: 16px;
+    }
 }
 
 a {
-  font-size: 14px;
-  text-decoration: none;
-  color: #000000;
+    text-decoration: none;
+    color: $color2;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-a:hover {
-  text-decoration: underline;
-}
+button {
+    height: 36px;
+    background: $color2;
+    color: $color4;
+    padding: 0 16px;
+    border: none;
+    cursor: pointer;
 
-[md-button] {
-  background-color: #ffffff;
+    &:hover {
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+    }
+
+    &:focus {
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.25);
+    }
 }
 
 md-input {
-  width: 100%;
+    width: 100%;
+}
+
+snack-bar-container {
+    max-width: none !important;
 }
 
 .flex-block {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .flex-block-column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .flex {
-  flex: 1;
+    flex: 1;
 }
 
 .align-items-center {

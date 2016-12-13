@@ -1,21 +1,21 @@
-<form (submit)="signUp($event, form.value)" #form="ngForm" novalidate autocomplete="off">
-    <md-card>
-        <md-card-title>Registration</md-card-title>
-        <md-card-content>
+<form (submit)="signUp(form)" #form="ngForm" novalidate autocomplete="off">
+    <div class="auth">
+        <h2>Registration</h2>
+        <div class="auth-content">
             <div class="form-container">
-                <md-input ngModel name="name" placeholder="Your name" required></md-input>
+                <label>Your name:</label><input ngModel type="text" name="name" required>
             </div>
             <div class="form-container">
-                <md-input ngModel name="email" placeholder="Email" required></md-input>
+                <label>Email:</label><input ngModel type="text" name="email" required>
             </div>
             <div class="form-container">
-                <md-input ngModel type="password" name="password" placeholder="Password" required></md-input>
+                <label>Password:</label><input ngModel type="password" name="password" required>
             </div>
-        </md-card-content>
-        <md-card-actions class="auth-actions flex-block">
+        </div>
+        <div class="form-actions flex-block">
             <a [routerLink]="['/account/sign-in']">Sign in</a>
             <div class="flex"></div>
-            <button md-raised-button color="primary" [disabled]="!form.valid">Sign up</button>
-        </md-card-actions>
-    </md-card>
+            <button>Sign up</button>
+        </div>
+    </div>
 </form>

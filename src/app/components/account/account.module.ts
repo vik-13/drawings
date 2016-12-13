@@ -3,9 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 
 import {
-    MdCardModule,
-    MdButtonModule,
-    MdInputModule
+    MdSnackBarModule
 } from '@angular/material';
 
 import {AccountAuth} from './account.auth';
@@ -17,9 +15,7 @@ import {SignUpComponent} from './sign-up/sign-up.component';
     imports: [
         RouterModule,
         FormsModule,
-        MdCardModule,
-        MdButtonModule,
-        MdInputModule
+        MdSnackBarModule
     ],
     declarations: [
         AccountComponent,

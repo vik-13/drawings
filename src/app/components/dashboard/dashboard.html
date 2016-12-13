@@ -1,26 +1,33 @@
 <div class="internal-page">
-    <md-toolbar color="primary">
-        <span>Drawings</span>
+    <div class="header">
+        <h1>Drawings...</h1>
         <span class="flex"></span>
-        <span class="account-info">Hi, {{userName}}</span>
-        <button md-button color="primary" (click)="signOut()">Sign out</button>
-    </md-toolbar>
-    <div class="content">
-        <div class="title flex-block align-items-center">
-            <h2>My</h2>
-            <div class="flex"></div>
-            <button md-fab color="primary" (click)="add()"><md-icon>add</md-icon></button>
+        <span class="account-info">{{userName}}</span>
+        <a href (click)="signOut()">Sign out</a>
+    </div>
+    <div class="content-container">
+        <div class="content">
+            <div class="title flex-block align-items-center">
+                <h2>My</h2>
+                <div class="flex"></div>
+                <button md-fab color="primary" (click)="add()"><md-icon>add</md-icon></button>
+            </div>
+            <div class="drawings-container">
+                <div class="drawings-item" *ngFor="let drawing of drawings | async">
+                    <drawing-item [drawing]="drawing"
+                                  (onRemove)="remove($event)"
+                                  (onShare)="share($event)"
+                                  (onUnShare)="unShare($event)"></drawing-item>
+                </div>
+            </div>
+            <div class="title flex-block align-items-center">
+                <h2>Shared</h2>
+            </div>
+            <div class="drawings-container">
+                <div class="drawings-item" *ngFor="let shared of sharedDrawings | async">
+                    <shared-drawing-item [shared]="shared"></shared-drawing-item>
+                </div>
+            </div>
         </div>
-        <drawing-item [drawing]="drawing"
-                      (onRemove)="remove($event)"
-                      (onShare)="share($event)"
-                      (onUnShare)="unShare($event)"
-                      *ngFor="let drawing of drawings | async"></drawing-item>
-
-        <div class="title flex-block align-items-center">
-            <h2>Shared</h2>
-        </div>
-        <shared-drawing-item [shared]="shared"
-                      *ngFor="let shared of sharedDrawings | async"></shared-drawing-item>
     </div>
 </div>

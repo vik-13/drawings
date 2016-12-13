@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AuthService} from "../../../auth/auth.service";
 import {Router} from "@angular/router";
 import {AngularFire} from "angularfire2";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
   selector: 'sign-up',
@@ -9,18 +10,24 @@ import {AngularFire} from "angularfire2";
 })
 export class SignUpComponent {
 
-    constructor(public authService: AuthService, public router: Router, public af: AngularFire) {}
+    constructor(public authService: AuthService,
+                public router: Router,
+                public af: AngularFire,
+                public snackBar: MdSnackBar) {}
 
-    signUp(event:any, form) {
-        event.preventDefault();
-        this.authService.create(form).then((user) => {
-            this.af.database.object('/users/' + user.uid).set({
-                name: form.name
-            }).then(() => {
-                this.router.navigate(['/']);
+    signUp(form) {
+        if (form.valid) {
+            this.authService.create(form.value).then((user) => {
+                this.af.database.object('/users/' + user.uid).set({
+                    name: form.value.name
+                }).then(() => {
+                    this.router.navigate(['/']);
+                });
+            }).catch((response) => {
+                this.snackBar.open(response, 'Try again', {duration: 10000});
             });
-        }).catch((response) => {
-            console.log(response);
-        });
+        } else {
+            this.snackBar.open('All fields are required...', 'Try again', {duration: 10000});
+        }
     }
 }

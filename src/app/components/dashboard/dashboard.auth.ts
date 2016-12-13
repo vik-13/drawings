@@ -17,7 +17,7 @@ export class DashboardAuth implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.af.auth.map((auth) =>  {
             if(auth == null) {
-                this.router.navigate(['/account/sign-in']);
+                this.router.navigate(['/account/sign-up']);
                 return false;
             } else {
                 this.authService.set(auth.uid);

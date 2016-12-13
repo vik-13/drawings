@@ -1,22 +1,12 @@
-<md-card [routerLink]="['/draw', drawing.$key]">
-    <md-card-header>
-        <md-card-title>{{drawing.name}}</md-card-title>
-        <md-card-subtitle></md-card-subtitle>
-    </md-card-header>
-    <div md-card-image style="background-color: black; height: 50px;"></div>
-    <md-card-content>
-        This is the content
-    </md-card-content>
-    <md-card-actions class="flex-block">
-        <button md-button
-                color="primary"
-                *ngIf="!drawing.shared"
-                (click)="share($event)">Share</button>
-        <button md-button
-                color="primary"
-                *ngIf="drawing.shared"
-                (click)="unShare($event)">Unshare</button>
-        <div class="flex"></div>
-        <button md-button color="warn" (click)="remove($event)">Remove</button>
-    </md-card-actions>
-</md-card>
+<div class="card" [routerLink]="['/draw', drawing.$key]">
+    <div class="card-header">
+        <h3>{{drawing.name}}</h3>
+        <span class="flex"></span>
+        <span class="shared" *ngIf="drawing.shared">shared</span>
+        <span class="flex"></span>
+        <a (click)="share($event)" *ngIf="!drawing.shared"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+        <a (click)="unShare($event)" *ngIf="drawing.shared"><i class="fa fa-share-alt-square" aria-hidden="true"></i></a>
+        <a (click)="remove($event)"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+    <div class="preview"></div>
+</div>
