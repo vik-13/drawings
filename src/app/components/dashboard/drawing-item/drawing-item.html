@@ -1,5 +1,5 @@
 <div class="card" [routerLink]="['/draw', drawing.$key]">
-    <div class="card-header">
+    <div class="card-header" [class.is-shared]="drawing.shared">
         <h3>{{drawing.name}}</h3>
         <span class="flex"></span>
         <span class="shared" *ngIf="drawing.shared">shared</span>

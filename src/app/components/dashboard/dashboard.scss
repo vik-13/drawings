@@ -46,14 +46,46 @@
                     flex-grow: 0;
                     flex-shrink: 0;
                     flex-basis: 360px;
+                    height: 258px;
                     margin: 16px;
+
+                    .add-card {
+                        position: relative;
+                        box-sizing: border-box;
+                        opacity: 0.3;
+                        width: 100%;
+                        height: 100%;
+                        padding: 16px 16px 0 16px;
+                        background-color: #ffffff;
+                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+                        &:hover {
+                            opacity: 1;
+                        }
+
+                        .add-link {
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+
+                            &:hover {
+                                text-decoration: none;
+                            }
+
+                            i {
+                                font-size: 96px;
+                            }
+                        }
+                    }
 
                     .card {
                         position: relative;
                         box-sizing: border-box;
                         width: 100%;
                         height: 100%;
-                        //margin: 20px;
                         padding: 16px 16px 0 16px;
                         background-color: #ffffff;
                         box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
@@ -66,6 +98,17 @@
 
                             h3 {
                                 margin: 0;
+                                max-width: 220px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                line-height: 26px;
+                            }
+
+                            &.is-shared {
+                                h3 {
+                                    max-width: 160px;
+                                }
                             }
 
                             h4 {

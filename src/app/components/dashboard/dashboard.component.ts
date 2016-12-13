@@ -33,8 +33,16 @@ export class DashboardComponent {
         this.userObservable = af.database.object('/users/' + this.userId, {preserveSnapshot: true}).subscribe((snapshot) => {
             this.userName = snapshot.val().name;
         });
-        this.drawings = af.database.list('/users/' + this.userId + '/drawings');
-        this.sharedDrawings = af.database.list('/shared');
+        this.drawings = af.database.list('/users/' + this.userId + '/drawings', {
+            query: {
+                orderByChild: 'created'
+            }
+        });
+        this.sharedDrawings = af.database.list('/shared', {
+            query: {
+                orderByChild: 'created'
+            }
+        });
     }
 
     add() {
@@ -47,6 +55,7 @@ export class DashboardComponent {
                 this.drawings.push({
                     name: result.name,
                     owner: this.userId,
+                    created: 0 - +new Date(),
                     shared: false,
                     selectedLayout: '',
                     width: +result.width,
@@ -58,7 +67,11 @@ export class DashboardComponent {
     }
 
     share(key: string) {
-        this.sharedDrawings.push({drawingId: key, ownerId: this.userId}).then((response) => {
+        this.sharedDrawings.push({
+            drawingId: key,
+            ownerId: this.userId,
+            created: 0 - +new Date(),
+        }).then((response) => {
             this.af.database.object('/users/' + this.userId + '/drawings/' + key).update({shared: response.key});
         });
     }
