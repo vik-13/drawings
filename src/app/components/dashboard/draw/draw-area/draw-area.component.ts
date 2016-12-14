@@ -45,7 +45,8 @@ export class DrawAreaComponent {
 
     constructor(public af: AngularFire,
                 public activatedRoute: ActivatedRoute,
-                public authService: AuthService, public drawAreaService: DrawAreaService) {
+                public authService: AuthService,
+                public drawAreaService: DrawAreaService) {
 
         activatedRoute.params.subscribe((params) => {
             let id = params['id'];
@@ -86,6 +87,7 @@ export class DrawAreaComponent {
                         key: snapshot.key,
                         name: value.name,
                         visibility: value.visibility,
+                        closed: value.closed,
                         dots: [],
                         lines: []
                     };
@@ -102,12 +104,14 @@ export class DrawAreaComponent {
                 if (layout.dots.length > 1) {
                     for (i = 0; i < layout.dots.length; i++) {
                         next = (i == layout.dots.length - 1) ? layout.dots[0] : layout.dots[i + 1];
-                        layout.lines.push({
-                            x1: layout.dots[i].x,
-                            y1: layout.dots[i].y,
-                            x2: next.x,
-                            y2: next.y
-                        });
+                        if ((i != layout.dots.length - 1) || layout.closed) {
+                            layout.lines.push({
+                                x1: layout.dots[i].x,
+                                y1: layout.dots[i].y,
+                                x2: next.x,
+                                y2: next.y
+                            });
+                        }
                     }
                 }
 

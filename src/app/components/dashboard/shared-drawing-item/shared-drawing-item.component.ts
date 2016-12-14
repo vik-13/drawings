@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {AngularFire} from "angularfire2";
+import {AuthService} from "../../../auth/auth.service";
 
 @Component({
     selector: 'shared-drawing-item',
@@ -19,9 +20,7 @@ export class SharedDrawingItemComponent {
 
     layouts: Array<any> = [];
 
-    constructor(public af: AngularFire) {
-
-    }
+    constructor(public af: AngularFire) {}
 
     ngOnChanges(changes: any) {
         this.sharedKey = this.shared.$key;
@@ -41,6 +40,7 @@ export class SharedDrawingItemComponent {
                             key: dirtyLayoutKey,
                             name: dirtyLayout.name,
                             visibility: dirtyLayout.visibility,
+                            closed: dirtyLayout.closed,
                             dots: [],
                             lines: []
                         };
@@ -57,12 +57,14 @@ export class SharedDrawingItemComponent {
                     if (layout.dots.length > 1) {
                         for (i = 0; i < layout.dots.length; i++) {
                             next = (i == layout.dots.length - 1) ? layout.dots[0] : layout.dots[i + 1];
-                            layout.lines.push({
-                                x1: layout.dots[i].x,
-                                y1: layout.dots[i].y,
-                                x2: next.x,
-                                y2: next.y
-                            });
+                            if ((i != layout.dots.length - 1) || layout.closed) {
+                                layout.lines.push({
+                                    x1: layout.dots[i].x,
+                                    y1: layout.dots[i].y,
+                                    x2: next.x,
+                                    y2: next.y
+                                });
+                            }
                         }
                     }
 

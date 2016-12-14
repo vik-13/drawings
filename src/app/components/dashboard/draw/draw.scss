@@ -4,6 +4,59 @@
     .content {
         position: relative;
         height: 100%;
-        background-color: antiquewhite;
+
+        .draw-area-container {
+            position: relative;
+        }
+
+        .layouts-container {
+            position: relative;
+
+            .layouts {
+                width: 300px;
+                height: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
+                user-select: none;
+
+                h3 {
+                    margin: 0 0 16px 0;
+                }
+
+                .layouts-list {
+
+                    .layout {
+                        box-sizing: border-box;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        height: 32px;
+                        margin: 0 8px;
+                        color: #979C9C;
+                        border-bottom: 1px solid #348899;
+                        user-select: none;
+                        cursor: default;
+
+                        &.active {
+                            color: #343642;
+                        }
+
+                        >* {
+                            padding: 0 8px;
+                        }
+                    }
+
+                    .layout-add {
+                        height: 32px;
+                        line-height: 32px;
+                        margin: 0 16px;
+
+                        a {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

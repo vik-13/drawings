@@ -30,7 +30,8 @@
                 <input type="checkbox" [(ngModel)]="sharedVisibility"/>
             </div>
             <div class="drawings-container" *ngIf="sharedVisibility">
-                <div class="drawings-item" *ngFor="let shared of sharedDrawings | async">
+                <div class="drawings-item"
+                     *ngFor="let shared of sharedDrawings | async">
                     <shared-drawing-item [shared]="shared"></shared-drawing-item>
                 </div>
             </div>
