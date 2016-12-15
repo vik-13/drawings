@@ -19,6 +19,7 @@ import {DrawingItemComponent} from "./drawing-item/drawing-item.component";
 import {SharedDrawingItemComponent} from "./shared-drawing-item/shared-drawing-item.component";
 import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component";
 import {AddDrawingComponent} from "./add-drawing/add-drawing.component";
+import {PreviewComponent} from "../../shared/preview/preview.component";
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import {AddDrawingComponent} from "./add-drawing/add-drawing.component";
         AddDrawingComponent,
         DrawingItemComponent,
         SharedDrawingItemComponent,
-        DrawingDialogComponent
+        DrawingDialogComponent,
+        PreviewComponent
     ],
     providers: [
         DashboardAuth
