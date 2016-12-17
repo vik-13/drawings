@@ -31,20 +31,20 @@ export class DrawComponent {
                     let shared = snapshot.val();
                     this.userId = shared.ownerId;
                     this.drawingId = shared.drawingId;
-                    this.connect(this.userId, this.drawingId);
+                    this.connect(this.drawingId);
                     subscriber.unsubscribe();
                 });
             } else {
                 this.userId = this.authService.get();
                 this.drawingId = id;
-                this.connect(this.userId, this.drawingId);
+                this.connect(this.drawingId);
             }
         });
     }
 
-    connect(userId, drawingId) {
-        this.drawing = this.af.database.object('/users/' + userId + '/drawings/' + drawingId, {preserveSnapshot: true});
-        this.list = this.af.database.list('/users/' + userId + '/drawings/' + drawingId + '/layouts');
+    connect(drawingId) {
+        this.drawing = this.af.database.object('/drawings/' + drawingId, {preserveSnapshot: true});
+        this.list = this.af.database.list('/drawings/' + drawingId + '/layouts');
 
         this.drawingSubscribe = this.drawing.subscribe((snapshot) => {
             let drawing = snapshot.val();

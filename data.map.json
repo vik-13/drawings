@@ -1,41 +1,50 @@
 {
-    "shared": [
-        {
-            "drawing": "DRAWING_ID",
-            "owner": "USER_ID"
-        }
-    ],
     "users": {
-        "USER_ID": {
+        "$uid": {
+            "name": "Vik",
             "drawings": [
                 {
-                    "name": "Tree",
-                    "owner": "USER_ID",
-                    "shared": false,
-                    "locked": true,
-                    "width": 320,
-                    "height": 240,
-                    "selectedLayout": "LAYOUT_ID",
-                    "layouts": [
-                        {
-                            "name": "Layout 1",
-                            "visibility": true,
-                            "dots": [
-                                {"x": 0, "y": 0},
-                                {"x": 1, "y": 1}
-                            ]
-                        },
-                        {
-                            "name": "Layout 1",
-                            "visibility": true,
-                            "dots": [
-                                {"x": 0, "y": 0},
-                                {"x": 1, "y": 1}
-                            ]
-                        }
-                    ]
+                    "created": "-TIMESTAMP",
+                    "id": "$drawingId"
                 }
             ]
         }
-    }
+    },
+    "shared": [
+        {
+            "created": "-TIMESTAMP",
+            "id": "$drawingId",
+            "userId": "$userId"
+        }
+    ],
+    "drawings": [
+        {
+            "name": "Ha ha",
+            "created": "TIMESTAMP",
+            "userId": "$uid",
+            "width": 320,
+            "height": 240,
+            "shared": "$sharedId",
+            "selectedLayout": "$layoutId",
+            "layouts": [
+                {
+                    "name": "Background",
+                    "visibility": true,
+                    "closeness": true,
+                    "dots": [
+                        {
+                            "index": 0,
+                            "x": 1,
+                            "y": 1
+                        }
+                    ]
+                }
+            ],
+            "fans": [
+                "$userId",
+                "$userId",
+                "$userId"
+            ]
+        }
+    ]
 }

@@ -13,7 +13,7 @@ export class SharedDrawingItemComponent {
     userName: any;
     drawing: any = {};
 
-    sharedKey: string;
+    drawingKey: string;
 
     userSubscriber: any;
     drawingSubscriber: any;
@@ -21,11 +21,11 @@ export class SharedDrawingItemComponent {
     constructor(public af: AngularFire) {}
 
     ngOnChanges() {
-        this.sharedKey = this.shared.$key;
-        this.userSubscriber = this.af.database.object('/users/' + this.shared.ownerId, {preserveSnapshot: true}).subscribe((snapshot) => {
+        this.drawingKey = this.shared.id;
+        this.userSubscriber = this.af.database.object('/users/' + this.shared.userId, {preserveSnapshot: true}).subscribe((snapshot) => {
             this.userName = snapshot.val().name;
         });
-        this.drawingSubscriber = this.af.database.object('/users/' + this.shared.ownerId + '/drawings/' + this.shared.drawingId, {preserveSnapshot: true}).subscribe((snapshot) => {
+        this.drawingSubscriber = this.af.database.object('/drawings/' + this.shared.id, {preserveSnapshot: true}).subscribe((snapshot) => {
             this.drawing = snapshot.val();
         });
     }

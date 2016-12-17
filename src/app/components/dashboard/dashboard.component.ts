@@ -52,38 +52,43 @@ export class DashboardComponent {
     }
 
     add(data) {
-        this.drawings.push({
+        this.af.database.list('/drawings').push({
             name: data.name,
-            owner: this.userId,
-            created: 0 - +new Date(),
+            userId: this.userId,
+            created: +new Date(),
             shared: false,
             selectedLayout: '',
             width: +data.width,
             height: +data.height
+        }).then((response) => {
+            this.drawings.push({
+                created: 0 - +new Date(),
+                id: response.key
+            });
         });
         this.createMode = false;
     }
 
     share(key: string) {
         this.sharedDrawings.push({
-            drawingId: key,
-            ownerId: this.userId,
             created: 0 - +new Date(),
+            id: key,
+            userId: this.userId,
         }).then((response) => {
-            this.af.database.object('/users/' + this.userId + '/drawings/' + key).update({shared: response.key});
+            this.af.database.object('/drawings/' + key).update({shared: response.key});
         });
     }
 
-    unShare(drawing: any) {
-        this.sharedDrawings.remove(drawing.shared);
-        this.af.database.object('/users/' + this.userId + '/drawings/' + drawing.$key).update({shared: false});
+    unShare(data: any) {
+        this.sharedDrawings.remove(data.sharedKey);
+        this.af.database.object('/drawings/' + data.key).update({shared: false});
     }
 
-    remove(drawing: any) {
-        if (drawing.shared) {
-            this.sharedDrawings.remove(drawing.shared);
+    remove(data: any) {
+        if (data.sharedKey) {
+            this.sharedDrawings.remove(data.sharedKey);
         }
-        this.drawings.remove(drawing.$key);
+        this.drawings.remove(data.key);
     }
 
     signOut() {

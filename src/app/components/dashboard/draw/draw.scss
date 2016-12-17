@@ -20,7 +20,8 @@
                 user-select: none;
 
                 h3 {
-                    margin: 0 0 16px 0;
+                    margin: 0;
+                    padding: 16px 8px;
                 }
 
                 .layouts-list {
@@ -33,12 +34,14 @@
                         height: 32px;
                         margin: 0 8px;
                         color: #979C9C;
-                        border-bottom: 1px solid #348899;
+                        border-bottom: 1px solid #f0f0f0;
                         user-select: none;
                         cursor: default;
 
                         &.active {
                             color: #343642;
+                            border-bottom: 1px solid #348899;
+                            background-color: #f8f8f8;
                         }
 
                         >* {

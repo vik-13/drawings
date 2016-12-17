@@ -12,14 +12,14 @@
                          (click)="show(item.$key)"
                          (dblclick)="editName(item.$key)"
                          [class.active]="selectedLayout == item.$key">
-                        <div [attr.contentEditable]="editingKey != '' && editingKey == item.$key" #nameLink (keypress)="changeName($event, nameLink)">{{item.name}}</div>
-                        <div class="flex"></div>
-                        <div>
+                        <div title="Visibility">
                             <input type="checkbox"
                                    [checked]="item.visibility"
                                    (click)="changeVisibility($event, item.$key, !item.visibility)"/>
                         </div>
-                        <div>
+                        <div [attr.contentEditable]="editingKey != '' && editingKey == item.$key" #nameLink (keypress)="changeName($event, nameLink)">{{item.name}}</div>
+                        <div class="flex"></div>
+                        <div title="Closeness">
                             <input type="checkbox"
                                    [checked]="item.closed"
                                    (click)="changeClosed($event, item.$key, !item.closed)"/>

@@ -8,5 +8,5 @@
         <a (click)="unShare($event)" *ngIf="drawing.shared"><i class="fa fa-share-alt-square" aria-hidden="true"></i></a>
         <a (click)="remove($event)"><i class="fa fa-times" aria-hidden="true"></i></a>
     </div>
-    <preview [drawing]="drawing" [routerLink]="['/draw', drawing.$key]"></preview>
+    <preview [drawing]="drawing" [routerLink]="['/draw', drawingKey]"></preview>
 </div>

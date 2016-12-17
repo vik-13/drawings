@@ -18,7 +18,7 @@
                                  (onCreate)="add($event)"></add-drawing>
                 </div>
                 <div class="drawings-item" *ngFor="let drawing of drawings | async">
-                    <drawing-item [drawing]="drawing"
+                    <drawing-item [drawingLink]="drawing"
                                   (onRemove)="remove($event)"
                                   (onShare)="share($event)"
                                   (onUnShare)="unShare($event)"></drawing-item>

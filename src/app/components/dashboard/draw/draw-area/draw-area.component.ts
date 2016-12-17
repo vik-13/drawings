@@ -19,13 +19,13 @@ export class DrawAreaComponent {
     };
 
     move: any = {
+        type: 'dot', // Could be dot, dots or line...
         last: {
             x: 0,
             y: 0
         },
-        isLayout: false,
         active: false,
-        dot: false
+        data: false
     };
 
     selectedLayout: string = '';
@@ -67,9 +67,9 @@ export class DrawAreaComponent {
     }
 
     connect() {
-        this.drawAreaService.init(this.userId, this.drawingId);
+        this.drawAreaService.init(this.drawingId);
 
-        this.drawing = this.af.database.object('/users/' + this.userId + '/drawings/' + this.drawingId, {preserveSnapshot: true});
+        this.drawing = this.af.database.object('/drawings/' + this.drawingId, {preserveSnapshot: true});
         this.drawingSubscribe = this.drawing.subscribe(snapshot => {
             let drawing = snapshot.val();
             this.selectedLayout = drawing ? drawing.selectedLayout : '';
@@ -78,7 +78,7 @@ export class DrawAreaComponent {
             this.drawAreaService.setLayout(this.selectedLayout);
         });
 
-        this.layoutsObservable = this.af.database.list('/users/' + this.userId + '/drawings/' + this.drawingId + '/layouts', {preserveSnapshot: true});
+        this.layoutsObservable = this.af.database.list('/drawings/' + this.drawingId + '/layouts', {preserveSnapshot: true});
         this.layoutsSubscribe = this.layoutsObservable.subscribe(snapshots => {
             this.layouts.length = 0;
             snapshots.forEach(snapshot => {
@@ -106,10 +106,16 @@ export class DrawAreaComponent {
                         next = (i == layout.dots.length - 1) ? layout.dots[0] : layout.dots[i + 1];
                         if ((i != layout.dots.length - 1) || layout.closed) {
                             layout.lines.push({
-                                x1: layout.dots[i].x,
-                                y1: layout.dots[i].y,
-                                x2: next.x,
-                                y2: next.y
+                                from: {
+                                    key: layout.dots[i].key,
+                                    x: layout.dots[i].x,
+                                    y: layout.dots[i].y
+                                },
+                                to: {
+                                    key: next.key,
+                                    x: next.x,
+                                    y: next.y
+                                }
                             });
                         }
                     }
@@ -125,12 +131,28 @@ export class DrawAreaComponent {
         event.stopPropagation();
         if (event.button == 0) {
             if (layout == this.selectedLayout) {
-                this.move.isLayout = false;
+                this.move.type = 'dot';
                 this.move.active = true;
-                this.move.dot = dot;
+                this.move.data = dot;
             }
         } else {
             this.drawAreaService.removeDot(dot.key);
+        }
+    }
+
+    clickOnLine(event, line, layout) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.button == 0) {
+            if (layout == this.selectedLayout) {
+                this.move.type = 'line';
+                this.move.active = true;
+                this.move.data = line;
+                this.move.last.x = this.mouse.x;
+                this.move.last.y = this.mouse.y;
+            }
+        } else {
+            //this.drawAreaService.removeDot(dot.key);
         }
     }
 
@@ -142,24 +164,26 @@ export class DrawAreaComponent {
                 this.drawAreaService.addDot(this.mouse.x, this.mouse.y);
             }
         } else {
-            this.move.last.x = this.mouse.x;
-            this.move.last.y = this.mouse.y;
-            this.move.isLayout = true;
+            this.move.type = 'dots';
             this.move.active = true;
         }
+        this.move.last.x = this.mouse.x;
+        this.move.last.y = this.mouse.y;
     }
 
     mouseMove(event) {
         this.mouse.x = event.offsetX;
         this.mouse.y = event.offsetY;
         if (this.move.active) {
-            if (!this.move.isLayout) {
-                this.drawAreaService.updateDot(this.move.dot.key, this.mouse.x, this.mouse.y);
-            } else {
+            if (this.move.type == 'dot') {
+                this.drawAreaService.updateDot(this.move.data.key, this.mouse.x, this.mouse.y);
+            } else if (this.move.type == 'line') {
+                this.drawAreaService.updateLine(this.layouts, this.move.data, this.mouse.x - this.move.last.x, this.mouse.y - this.move.last.y);
+            } else if (this.move.type == 'dots') {
                 this.drawAreaService.updateDots(this.layouts, this.mouse.x - this.move.last.x, this.mouse.y - this.move.last.y);
-                this.move.last.x = this.mouse.x;
-                this.move.last.y = this.mouse.y;
             }
+            this.move.last.x = this.mouse.x;
+            this.move.last.y = this.mouse.y;
         }
     }
 
@@ -168,7 +192,7 @@ export class DrawAreaComponent {
         this.mouse.y = event.offsetY;
         if (this.move.active) {
             this.move.active = false;
-            this.move.isLayout = false;
+            this.move.type = '';
         }
     }
 
