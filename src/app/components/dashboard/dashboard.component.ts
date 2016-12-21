@@ -16,7 +16,6 @@ export class DashboardComponent {
     userName: string;
 
     createMode: boolean = false;
-    sharedVisibility: boolean = true;
 
     drawings: FirebaseListObservable<any>;
     sharedDrawings: FirebaseListObservable<any>;
@@ -88,7 +87,8 @@ export class DashboardComponent {
         if (data.sharedKey) {
             this.sharedDrawings.remove(data.sharedKey);
         }
-        this.drawings.remove(data.key);
+        this.af.database.list('/drawings').remove(data.key);
+        this.drawings.remove(data.linkKey);
     }
 
     signOut() {

@@ -2,7 +2,8 @@ import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'preview',
-    templateUrl: './preview.html'
+    templateUrl: './preview.html',
+    styleUrls: ['./preview.scss']
 })
 
 export class PreviewComponent {

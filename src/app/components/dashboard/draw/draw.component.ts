@@ -16,6 +16,8 @@ export class DrawComponent {
     drawing: FirebaseObjectObservable<any>;
     list: FirebaseListObservable<any>;
 
+    drawingObject: any;
+
     drawingSubscribe: any;
 
     editingKey: string = '';
@@ -47,8 +49,8 @@ export class DrawComponent {
         this.list = this.af.database.list('/drawings/' + drawingId + '/layouts');
 
         this.drawingSubscribe = this.drawing.subscribe((snapshot) => {
-            let drawing = snapshot.val();
-            this.selectedLayout = drawing ? drawing.selectedLayout : '';
+            this.drawingObject = snapshot.val();
+            this.selectedLayout = this.drawingObject ? this.drawingObject.selectedLayout : '';
         });
     }
 

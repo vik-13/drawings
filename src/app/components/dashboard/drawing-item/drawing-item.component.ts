@@ -13,7 +13,6 @@ export class DrawingItemComponent {
     @Output() onShare = new EventEmitter<string>();
     @Output() onUnShare = new EventEmitter<any>();
 
-    drawingKey: string = '';
     drawing: any = {};
     drawingSubscriber: any;
 
@@ -22,27 +21,27 @@ export class DrawingItemComponent {
     remove(event) {
         event.stopPropagation();
         this.onRemove.emit({
-            key: this.drawingKey,
+            key: this.drawingLink.id,
+            linkKey: this.drawingLink.$key,
             sharedKey: this.drawing.shared
         });
     }
 
     share(event) {
         event.stopPropagation();
-        this.onShare.emit(this.drawingKey);
+        this.onShare.emit(this.drawingLink.id);
     }
 
     unShare(event) {
         event.stopPropagation();
         this.onUnShare.emit({
-            key: this.drawingKey,
+            key: this.drawingLink.id,
             sharedKey: this.drawing.shared
         });
     }
 
     ngOnChanges() {
         this.drawingSubscriber = this.af.database.object('/drawings/' + this.drawingLink.id, {preserveSnapshot: true}).subscribe((snapshot) => {
-            this.drawingKey = snapshot.key;
             this.drawing = snapshot.val();
         });
     }

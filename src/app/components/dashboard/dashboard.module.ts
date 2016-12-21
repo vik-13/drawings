@@ -17,7 +17,6 @@ import {DashboardComponent} from './dashboard.component';
 import {DrawModule} from "./draw/draw.module";
 import {DrawingItemComponent} from "./drawing-item/drawing-item.component";
 import {SharedDrawingItemComponent} from "./shared-drawing-item/shared-drawing-item.component";
-import {DrawingDialogComponent} from "./drawing-dialog/drawing-dialog.component";
 import {AddDrawingComponent} from "./add-drawing/add-drawing.component";
 import {PreviewComponent} from "../../shared/preview/preview.component";
 
@@ -44,14 +43,10 @@ import {PreviewComponent} from "../../shared/preview/preview.component";
         AddDrawingComponent,
         DrawingItemComponent,
         SharedDrawingItemComponent,
-        DrawingDialogComponent,
         PreviewComponent
     ],
     providers: [
         DashboardAuth
-    ],
-    entryComponents: [
-        DrawingDialogComponent
     ]
 })
 export class DashboardModule { }

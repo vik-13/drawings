@@ -6,15 +6,16 @@
          (mousemove)="mouseMove($event)"
          (mouseup)="mouseUp($event)">
         <g *ngFor="let layout of layouts"
-           [style.opacity]="layout.key == selectedLayout? 1 : 0.25" [style.display]="layout.visibility ? 'block' : 'none'">
+           [class.active]="layout.key == selectedLayout"
+           [class.hide]="!layout.visibility">
             <line
                 [attr.x1]="line.from.x" [attr.y1]="line.from.y"
                 [attr.x2]="line.to.x" [attr.y2]="line.to.y"
-                stroke="#34495e" stroke-width="3"
+                stroke="#34495e" stroke-width="1"
                 *ngFor="let line of layout.lines"
                 (mousedown)="clickOnLine($event, line, layout.key)"></line>
             <circle
-                [attr.r]="layout.key == selectedLayout? 5 : 0" [attr.cx]="dot.x" [attr.cy]="dot.y" [attr.fill]="'#353535'"
+                [attr.r]="0" [attr.cx]="dot.x" [attr.cy]="dot.y" [attr.fill]="'#353535'"
                 *ngFor="let dot of layout.dots"
                 (mousedown)="clickOnDot($event, dot, layout.key)"></circle>
         </g>

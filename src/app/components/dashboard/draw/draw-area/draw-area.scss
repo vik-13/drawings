@@ -16,5 +16,30 @@
         user-select: none;
         background-color: #ffffff;
         box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
+
+        g {
+            opacity: 0.25;
+
+            &.hide {
+                display: none;
+            }
+
+            &.active {
+                opacity: 1;
+
+                line:hover {
+                    stroke-width: 7px;
+                }
+
+                circle {
+                    r: 5;
+
+                    &:hover {
+                        r: 7;
+                    }
+                }
+            }
+        }
+
     }
 }
