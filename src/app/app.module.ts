@@ -13,7 +13,7 @@ import {AppComponent} from './app.component';
 import {AccountModule} from './components/account/account.module';
 import {DashboardModule} from './components/dashboard/dashboard.module';
 
-export const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDfloWIpFJP7HHQCtvrsy4s8g31tmEdgqY",
     authDomain: "drawing-85d6a.firebaseapp.com",
     databaseURL: "https://drawing-85d6a.firebaseio.com",
@@ -35,9 +35,17 @@ const firebaseAuthConfig = {
         MaterialModule.forRoot(),
         AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
     ],
-    exports: [RouterModule],
-    declarations: [ AppComponent ],
-    bootstrap: [ AppComponent ],
-    providers: [ AuthService ]
+    exports: [
+        RouterModule
+    ],
+    declarations: [
+        AppComponent
+    ],
+    bootstrap: [
+        AppComponent
+    ],
+    providers: [
+        AuthService
+    ]
 })
 export class AppModule { }
