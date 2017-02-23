@@ -1,23 +1,23 @@
 <div class="draw-area">
-    <svg [attr.width]="size.width"
-         [attr.height]="size.height"
-         oncontextmenu="return false;"
-         (mousedown)="mouseDown($event)"
-         (mousemove)="mouseMove($event)"
-         (mouseup)="mouseUp($event)">
-        <g *ngFor="let layout of layouts"
-           [class.active]="layout.key == selectedLayout"
-           [class.hide]="!layout.visibility">
-            <line
-                [attr.x1]="line.from.x" [attr.y1]="line.from.y"
-                [attr.x2]="line.to.x" [attr.y2]="line.to.y"
-                stroke="#34495e" stroke-width="1"
-                *ngFor="let line of layout.lines"
-                (mousedown)="clickOnLine($event, line, layout.key)"></line>
-            <circle
-                [attr.r]="0" [attr.cx]="dot.x" [attr.cy]="dot.y" [attr.fill]="'#353535'"
-                *ngFor="let dot of layout.dots"
-                (mousedown)="clickOnDot($event, dot, layout.key)"></circle>
-        </g>
-    </svg>
+  <svg [attr.width]="size.width"
+       [attr.height]="size.height"
+       oncontextmenu="return false;"
+       (mousedown)="mouseDown($event)"
+       (mousemove)="mouseMove($event)"
+       (mouseup)="mouseUp($event)">
+    <g *ngFor="let layout of layouts"
+       [class.active]="layout.key == selectedLayout"
+       [class.hide]="!layout.visibility">
+      <line
+        [attr.x1]="line.from.x" [attr.y1]="line.from.y"
+        [attr.x2]="line.to.x" [attr.y2]="line.to.y"
+        stroke="#34495e" stroke-width="1"
+        *ngFor="let line of layout.lines"
+        (mousedown)="clickOnLine($event, line, layout.key)"></line>
+      <circle
+        [attr.r]="0" [attr.cx]="dot.x" [attr.cy]="dot.y" [attr.fill]="'#353535'"
+        *ngFor="let dot of layout.dots"
+        (mousedown)="clickOnDot($event, dot, layout.key)"></circle>
+    </g>
+  </svg>
 </div>

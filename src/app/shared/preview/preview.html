@@ -1,13 +1,13 @@
 <div class="preview">
-    <svg [attr.viewBox]="drawing.width && drawing.height ? '0 0 ' + drawing.width + ' ' + drawing.height : '0 0 0 0'"
-         preserveAspectRatio>
-        <g *ngFor="let layout of layouts"
-           [class.hide]="!layout.visibility">
-            <line
-                [attr.x1]="line.x1" [attr.y1]="line.y1"
-                [attr.x2]="line.x2" [attr.y2]="line.y2"
-                stroke="#34495e" stroke-width="1"
-                *ngFor="let line of layout.lines"></line>
-        </g>
-    </svg>
+  <svg [attr.viewBox]="drawing.width && drawing.height ? '0 0 ' + drawing.width + ' ' + drawing.height : '0 0 0 0'"
+       preserveAspectRatio>
+    <g *ngFor="let layout of layouts"
+       [class.hide]="!layout.visibility">
+      <line
+        [attr.x1]="line.x1" [attr.y1]="line.y1"
+        [attr.x2]="line.x2" [attr.y2]="line.y2"
+        stroke="#34495e" stroke-width="1"
+        *ngFor="let line of layout.lines"></line>
+    </g>
+  </svg>
 </div>
