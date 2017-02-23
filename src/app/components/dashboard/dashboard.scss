@@ -1,151 +1,147 @@
 .internal-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 
-    .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 0 32px;
-        z-index: 10;
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 32px;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 64px;
+    background-color: #F2EBC7;
+
+    h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #348899;
+    }
+
+    a {
+      color: #962D3E;
+    }
+  }
+
+  .content-container {
+    position: relative;
+    min-height: 100vh;
+
+    .content {
+      padding: 64px 32px 96px;
+
+      .title {
+
+        h2 {
+          color: #348899;
+
+          span {
+            font-size: 13px;
+            padding-left: 16px;
+            font-weight: 100;
+          }
+        }
+      }
+
+      .drawings-container {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        height: 64px;
-        background-color: #F2EBC7;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        min-height: 290px;
 
-        h1 {
-            font-size: 24px;
-            margin: 0;
-            color: #348899;
+        .no-drawings-block {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          font-size: 36px;
+          color: #979C9C;
         }
 
-        a {
-            color: #962D3E;
-        }
-    }
+        .drawings-item {
+          flex-grow: 0;
+          flex-shrink: 0;
+          flex-basis: 360px;
+          height: 258px;
+          margin: 16px;
 
-    .content-container {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        overflow: auto;
+          .card {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            padding: 16px 16px 0 16px;
+            background-color: #ffffff;
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
-        .content {
-            padding: 64px 32px 96px;
+            .card-header {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              padding: 0 0 16px;
 
-            .title {
+              h3 {
+                margin: 0;
+                max-width: 220px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                line-height: 26px;
+              }
 
-                h2 {
-                    color: #348899;
+              h4 {
+                margin: 0;
+                font-size: 11px;
+                color: #979C9C;
+              }
 
-                    span {
-                        font-size: 13px;
-                        padding-left: 16px;
-                        font-weight: 100;
-                    }
+              .shared {
+                position: absolute;
+                top: 0;
+                left: 0;
+                font-size: 13px;
+                padding: 0 16px;
+                background-color: #962D3E;
+                color: #F2EBC7;
+              }
+
+              a {
+                margin-left: 16px;
+                cursor: pointer;
+
+                i {
+                  font-size: 20px;
                 }
+              }
             }
 
-            .drawings-container {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                min-height: 290px;
+            .preview {
+              height: 200px;
+              margin: 0 -16px;
+              background-color: #ffffff;
 
-                .no-drawings-block {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 36px;
-                    color: #979C9C;
-                }
-
-                .drawings-item {
-                    flex-grow: 0;
-                    flex-shrink: 0;
-                    flex-basis: 360px;
-                    height: 258px;
-                    margin: 16px;
-
-                    .card {
-                        position: relative;
-                        box-sizing: border-box;
-                        width: 100%;
-                        height: 100%;
-                        padding: 16px 16px 0 16px;
-                        background-color: #ffffff;
-                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-                        .card-header {
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            padding: 0 0 16px;
-
-                            h3 {
-                                margin: 0;
-                                max-width: 220px;
-                                text-overflow: ellipsis;
-                                overflow: hidden;
-                                white-space: nowrap;
-                                line-height: 26px;
-                            }
-
-                            h4 {
-                                margin: 0;
-                                font-size: 11px;
-                                color: #979C9C;
-                            }
-
-                            .shared {
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                font-size: 13px;
-                                padding: 0 16px;
-                                background-color: #962D3E;
-                                color: #F2EBC7;
-                            }
-
-                            a {
-                                margin-left: 16px;
-                                cursor: pointer;
-
-                                i {
-                                    font-size: 20px;
-                                }
-                            }
-                        }
-
-                        .preview {
-                            height: 200px;
-                            margin: 0 -16px;
-                            background-color: #ffffff;
-
-                            svg {
-                                width: 100%;
-                                height: 100%;
-                            }
-                        }
-                    }
-                }
+              svg {
+                width: 100%;
+                height: 100%;
+              }
             }
+          }
         }
+      }
     }
+  }
 
-    .account-info {
-        padding-right: 32px;
-    }
+  .account-info {
+    padding-right: 32px;
+  }
 }
 
 .create-drawing {
-    width: 300px;
+  width: 300px;
 }

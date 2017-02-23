@@ -1,44 +1,44 @@
 <div class="internal-page">
-    <div class="header">
-        <h1>Drawings</h1>
-        <span class="flex"></span>
-        <span class="account-info">{{userName}}</span>
-        <a href (click)="signOut()">Sign out</a>
-    </div>
-    <div class="content-container">
-        <div class="content">
-            <div class="title flex-block align-items-center">
-                <h2>My <span>Here is the list of your drawings...</span></h2>
-                <div class="flex"></div>
-                <button (click)="showCreationForm()">Create a new drawing</button>
-            </div>
-            <div class="drawings-container">
-                <div class="drawings-item" *ngIf="createMode">
-                    <add-drawing (onCancel)="cancel()"
-                                 (onCreate)="add($event)"></add-drawing>
-                </div>
-                <div class="drawings-item" *ngFor="let drawing of drawings | async">
-                    <drawing-item [drawingLink]="drawing"
-                                  (onRemove)="remove($event)"
-                                  (onShare)="share($event)"
-                                  (onUnShare)="unShare($event)"></drawing-item>
-                </div>
-                <div class="no-drawings-block" *ngIf="!createMode && !(drawings | async)?.length">
-                    <span>You don`t have any drawings yet. Do you want to <a (click)="showCreationForm()">create</a> one?</span>
-                </div>
-            </div>
-            <div class="title flex-block align-items-center">
-                <h2>Shared <span>Here is the list of shared drawings by other people...</span></h2>
-            </div>
-            <div class="drawings-container">
-                <div class="drawings-item"
-                     *ngFor="let shared of sharedDrawings | async">
-                    <shared-drawing-item [shared]="shared"></shared-drawing-item>
-                </div>
-                <div class="no-drawings-block" *ngIf="!(sharedDrawings | async)?.length">
-                    <span>No one shares any drawings...</span>
-                </div>
-            </div>
+  <div class="header">
+    <h1>Drawings</h1>
+    <span class="flex"></span>
+    <span class="account-info">{{userName}}</span>
+    <a href (click)="signOut()">Sign out</a>
+  </div>
+  <div class="content-container">
+    <div class="content">
+      <div class="title flex-block align-items-center">
+        <h2>My <span>Here is the list of your drawings...</span></h2>
+        <div class="flex"></div>
+        <button (click)="showCreationForm()">Create a new drawing</button>
+      </div>
+      <div class="drawings-container">
+        <div class="drawings-item" *ngIf="createMode">
+          <add-drawing (onCancel)="cancel()"
+                       (onCreate)="add($event)"></add-drawing>
         </div>
+        <div class="drawings-item" *ngFor="let drawing of drawings | async">
+          <drawing-item [drawingLink]="drawing"
+                        (onRemove)="remove($event)"
+                        (onShare)="share($event)"
+                        (onUnShare)="unShare($event)"></drawing-item>
+        </div>
+        <div class="no-drawings-block" *ngIf="!createMode && !(drawings | async)?.length">
+          <span>You don`t have any drawings yet. Do you want to <a (click)="showCreationForm()">create</a> one?</span>
+        </div>
+      </div>
+      <div class="title flex-block align-items-center">
+        <h2>Shared <span>Here is the list of shared drawings by other people...</span></h2>
+      </div>
+      <div class="drawings-container">
+        <div class="drawings-item"
+             *ngFor="let shared of sharedDrawings | async">
+          <shared-drawing-item [shared]="shared"></shared-drawing-item>
+        </div>
+        <div class="no-drawings-block" *ngIf="!(sharedDrawings | async)?.length">
+          <span>No one shares any drawings...</span>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
