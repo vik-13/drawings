@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 
 import {
   MdListModule,
-  MdCheckboxModule, MdButtonModule, MdIconModule
+  MdCheckboxModule, MdButtonModule, MdIconModule, MdMenuModule
 } from '@angular/material';
 
 import {DrawComponent} from './draw.component';
@@ -19,6 +19,7 @@ import {LayoutsComponent} from "./layouts/layouts.component";
     MdCheckboxModule,
     MdButtonModule,
     MdIconModule,
+    MdMenuModule,
 
     DrawAreaModule
   ],

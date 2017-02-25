@@ -1,0 +1,21 @@
+:host {
+  width: 240px;
+  background: white;
+}
+
+.mat-list-item {
+
+  .layout-name {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    line-height: 40px;
+
+    cursor: default;
+    user-select: none;
+  }
+
+  &:hover, &.active {
+    background: #eaeaea;
+  }
+}

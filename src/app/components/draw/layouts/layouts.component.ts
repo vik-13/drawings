@@ -42,9 +42,9 @@ export class LayoutsComponent {
 
   add() {
     this.list.push({
-      name: 'Unnamed layout',
+      name: 'This is a layout',
       visibility: true,
-      closed: true
+      closed: false
     }).then((response) => {
       this.drawing.update({selectedLayout: response.key});
       this.selectedLayout = response.key;

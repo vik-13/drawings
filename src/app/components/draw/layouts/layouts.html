@@ -1,12 +1,30 @@
-<md-list>
+<md-list dense>
   <md-list-item *ngFor="let item of list | async; trackBy: trackByFn"
                 [class.active]="selectedLayout == item.$key">
-    <md-checkbox [checked]="item.visibility"
-                 (change)="changeVisibility(item.$key, !item.visibility)"></md-checkbox>
-    <span (click)="show(item.$key)">{{item.name}}</span>
+    <button md-icon-button
+            (click)="changeVisibility(item.$key, !item.visibility)">
+      <md-icon *ngIf="item.visibility">visibility</md-icon>
+      <md-icon *ngIf="!item.visibility">visibility_off</md-icon>
+    </button>
+    <span class="layout-name" (click)="show(item.$key)">{{item.name}}</span>
     <div class="flex"></div>
-    <md-checkbox [checked]="item.closed"
-                 (change)="changeClosed(item.$key, !item.closed)"></md-checkbox>
-    <button md-icon-button color="warn" (click)="remove(item.$key)"><md-icon>close</md-icon></button>
+    <button md-icon-button
+            [mdMenuTriggerFor]="layoutSetting">
+      <md-icon>more_horiz</md-icon>
+    </button>
+    <md-menu #layoutSetting="mdMenu">
+      <button md-menu-item (click)="changeClosed(item.$key, !item.closed)">
+        <md-icon *ngIf="item.closed">check_box</md-icon>
+        <md-icon *ngIf="!item.closed">check_box_outline_blank</md-icon>
+        <span>Endless</span>
+      </button>
+      <button md-menu-item color="warn" (click)="remove(item.$key)">
+        <md-icon>close</md-icon>
+        <span>Remove</span>
+      </button>
+    </md-menu>
+  </md-list-item>
+  <md-list-item class="add-layout">
+    <a (click)="add()">Add layout</a>
   </md-list-item>
 </md-list>
