@@ -1,8 +1,20 @@
-<div class="card">
-  <div class="card-header">
-    <h3>{{drawing.name}}</h3>
-    <span class="flex"></span>
-    <h4>Shared by {{userName}}</h4>
-  </div>
-  <preview [drawing]="drawing" [routerLink]="['/draw', drawingKey]"></preview>
-</div>
+<md-card>
+  <md-card-title>
+    <span>{{drawing.name}}</span>
+  </md-card-title>
+  <md-card-subtitle>
+    <span>Shared by {{userName}}</span>
+  </md-card-subtitle>
+  <md-card-content>
+    <preview [drawing]="drawing" [routerLink]="['/draw', drawingKey]"></preview>
+  </md-card-content>
+</md-card>
+
+<!--<div class="card">-->
+  <!--<div class="card-header">-->
+    <!--<h3>{{drawing.name}}</h3>-->
+    <!--<span class="flex"></span>-->
+    <!--<h4>Shared by {{userName}}</h4>-->
+  <!--</div>-->
+  <!--<preview [drawing]="drawing" [routerLink]="['/draw', drawingKey]"></preview>-->
+<!--</div>-->

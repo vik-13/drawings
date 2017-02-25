@@ -1,12 +1,14 @@
-<div class="card">
-  <div class="card-header" [class.is-shared]="drawing.shared">
-    <h3>{{drawing.name}}</h3>
-    <span class="flex"></span>
+<md-card>
+  <md-card-title [class.is-shared]="drawing.shared">
+    <span>{{drawing.name}}</span>
     <span class="shared" *ngIf="drawing.shared">shared</span>
-    <span class="flex"></span>
-    <a (click)="share($event)" *ngIf="!drawing.shared"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-    <a (click)="unShare($event)" *ngIf="drawing.shared"><i class="fa fa-share-alt-square" aria-hidden="true"></i></a>
-    <a (click)="remove($event)"><i class="fa fa-times" aria-hidden="true"></i></a>
-  </div>
-  <preview [drawing]="drawing" [routerLink]="['/draw', drawingLink.id]"></preview>
-</div>
+  </md-card-title>
+  <md-card-content>
+    <preview [drawing]="drawing" [routerLink]="['/draw', drawingLink.id]"></preview>
+  </md-card-content>
+  <md-card-actions align="right">
+    <button md-button color="primary" (click)="share($event)" *ngIf="!drawing.shared">Share</button>
+    <button md-button color="primary" (click)="unShare($event)" *ngIf="drawing.shared">UnShare</button>
+    <button md-button color="warn" (click)="remove($event)">Remove</button>
+  </md-card-actions>
+</md-card>

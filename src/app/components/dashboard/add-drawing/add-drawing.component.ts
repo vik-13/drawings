@@ -12,16 +12,7 @@ export class AddDrawingComponent {
   @Output() onCancel = new EventEmitter<any>();
   @Output() onCreate = new EventEmitter<any>();
 
-  form: FormGroup;
-
-  constructor(public fb: FormBuilder,
-              public snackBar: MdSnackBar) {
-    this.form = fb.group({
-      name: '',
-      width: 320,
-      height: 240
-    });
-  }
+  constructor(public snackBar: MdSnackBar) {}
 
   create(form) {
     if (form.valid) {

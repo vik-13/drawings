@@ -1,7 +1,16 @@
-svg {
-  g {
-    &.hide {
-      display: none;
+.preview {
+  height: 150px;
+  margin: 0 -24px;
+  background-color: #ffffff;
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    g {
+      &.hide {
+        display: none;
+      }
     }
   }
 }

@@ -3,7 +3,8 @@ import {AngularFire} from "angularfire2";
 
 @Component({
   selector: 'drawing-item',
-  templateUrl: './drawing-item.html'
+  templateUrl: './drawing-item.html',
+  styleUrls: ['./drawing-item.scss']
 })
 
 export class DrawingItemComponent {

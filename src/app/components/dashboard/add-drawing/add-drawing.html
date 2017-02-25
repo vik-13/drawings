@@ -1,21 +1,29 @@
-<div class="add-card">
-  <form [formGroup]="form" (submit)="create(form)" novalidate autocomplete="off">
-    <h3>Create your own drawing...</h3>
-    <div class="form-container">
-      <label>Name:</label><input name="name" [formControl]="form.controls['name']" required/>
-    </div>
-    <div class="flex-block">
-      <div class="form-container flex">
-        <label>Width:</label><input name="width" [formControl]="form.controls['width']" required/>
+<form #form="ngForm" (submit)="create(form)" novalidate autocomplete="off">
+  <md-card>
+    <md-card-title>
+      <span>Create your own drawing...</span>
+    </md-card-title>
+    <md-card-content class="fixed-height">
+      <md-input-container>
+        <input mdInput ngModel name="name" placeholder="Name" required />
+      </md-input-container>
+      <div class="flex-block">
+        <div class="form-container flex">
+          <md-input-container>
+            <input mdInput ngModel="320" name="width" placeholder="Width" required />
+          </md-input-container>
+        </div>
+        <div class="form-container flex">
+          <md-input-container>
+            <input mdInput ngModel="240" name="height" placeholder="Height" required />
+          </md-input-container>
+        </div>
       </div>
-      <div class="form-container flex">
-        <label>Height:</label><input name="height" [formControl]="form.controls['height']" required/>
-      </div>
-    </div>
-    <div class="form-actions">
-      <a (click)="cancel()">Cancel</a>
-      <div class="flex"></div>
-      <button>Create</button>
-    </div>
-  </form>
-</div>
+    </md-card-content>
+    <md-card-actions class="flex-block">
+      <button md-button color="primary" (click)="cancel()">Cancel</button>
+      <span class="flex"></span>
+      <button md-raised-button color="primary" type="submit">Create</button>
+    </md-card-actions>
+  </md-card>
+</form>

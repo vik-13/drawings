@@ -6,7 +6,7 @@ import {InternalZoneActivateService} from "./zones/internal-zone/internal-zone.a
 import {SignInComponent} from "./components/account/sign-in/sign-in.component";
 import {SignUpComponent} from "./components/account/sign-up/sign-up.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
-import {DrawComponent} from "./components/dashboard/draw/draw.component";
+import {DrawComponent} from "./components/draw/draw.component";
 
 export const appRoutes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},

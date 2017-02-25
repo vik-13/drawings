@@ -3,7 +3,8 @@ import {AngularFire} from "angularfire2";
 
 @Component({
   selector: 'shared-drawing-item',
-  templateUrl: './shared-drawing-item.html'
+  templateUrl: './shared-drawing-item.html',
+  styleUrls: ['./shared-drawing-item.scss']
 })
 
 export class SharedDrawingItemComponent {

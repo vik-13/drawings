@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {FirebaseObjectObservable, FirebaseListObservable, AngularFire} from "angularfire2";
-import {AuthService} from "../../../auth/auth.service";
+import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -13,6 +13,7 @@ export class DrawComponent {
   drawingId: string = '';
   userId: string = '';
   selectedLayout: string = '';
+
   drawing: FirebaseObjectObservable<any>;
   list: FirebaseListObservable<any>;
 
@@ -45,11 +46,11 @@ export class DrawComponent {
   }
 
   connect(drawingId) {
-    this.drawing = this.af.database.object('/drawings/' + drawingId, {preserveSnapshot: true});
+    this.drawing = this.af.database.object('/drawings/' + drawingId);
     this.list = this.af.database.list('/drawings/' + drawingId + '/layouts');
 
     this.drawingSubscribe = this.drawing.subscribe((snapshot) => {
-      this.drawingObject = snapshot.val();
+      this.drawingObject = snapshot;
       this.selectedLayout = this.drawingObject ? this.drawingObject.selectedLayout : '';
     });
   }

@@ -1,9 +1,16 @@
+$color1: #962D3E;
+$color2: #343642;
+$color3: #979C9C;
+$color4: #F2EBC7;
+$color5: #348899;
+
 .internal-page {
-  height: 100%;
+  height: 100vh;
+  background-color: $color4;
 
   .content {
     position: relative;
-    height: 100%;
+    height: 100vh;
 
     .draw-area-container {
       position: relative;

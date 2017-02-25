@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {AuthService} from "../../../../auth/auth.service";
+import {AuthService} from "../../../auth/auth.service";
 import {FirebaseObjectObservable, AngularFire, FirebaseListObservable} from "angularfire2";
 import {DrawAreaService} from "./draw-area.service";
 
