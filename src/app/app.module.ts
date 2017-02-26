@@ -14,6 +14,7 @@ import {AccountModule} from './components/account/account.module';
 import {DashboardModule} from './components/dashboard/dashboard.module';
 import {ZonesModule} from "./zones/zones.module";
 import {DrawModule} from "./components/draw/draw.module";
+import {SharedModule} from "./shared/shared.module";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDfloWIpFJP7HHQCtvrsy4s8g31tmEdgqY",
@@ -38,7 +39,8 @@ const firebaseAuthConfig = {
     AccountModule,
     DashboardModule,
     DrawModule,
-    ZonesModule
+    ZonesModule,
+    SharedModule
   ],
   exports: [
     RouterModule

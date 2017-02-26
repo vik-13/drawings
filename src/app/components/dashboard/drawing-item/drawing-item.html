@@ -7,6 +7,7 @@
     <preview [drawing]="drawing" [routerLink]="['/draw', drawingLink.id]"></preview>
   </md-card-content>
   <md-card-actions align="right">
+    <button md-button color="accent" (click)="exportData($event)">Export</button>
     <button md-button color="primary" (click)="share($event)" *ngIf="!drawing.shared">Share</button>
     <button md-button color="primary" (click)="unShare($event)" *ngIf="drawing.shared">UnShare</button>
     <button md-button color="warn" (click)="remove($event)">Remove</button>

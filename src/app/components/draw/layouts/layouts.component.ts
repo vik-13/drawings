@@ -40,9 +40,9 @@ export class LayoutsComponent {
     });
   }
 
-  add() {
+  add(name) {
     this.list.push({
-      name: 'This is a layout',
+      name: name,
       visibility: true,
       closed: false
     }).then((response) => {
@@ -53,6 +53,10 @@ export class LayoutsComponent {
 
   changeClosed(key, value) {
     this.list.update(key, {closed: value});
+  }
+
+  settings(key) {
+    console.log('go to settings');
   }
 
   remove(key) {

@@ -1,0 +1,15 @@
+<div class="add-layout-container">
+  <div class="add-layout-link" (click)="toEdit()" *ngIf="!editMode">Add layout</div>
+  <div class="edit flex-block" *ngIf="editMode">
+    <md-input-container>
+      <input mdInput ngModel vuFocus #field
+             name="layout_name"
+             placeholder="Enter layout name"
+             (keyup.enter)="add(field)"
+             (keyup.esc)="cancel()"/>
+    </md-input-container>
+    <div>
+      <button md-button color="primary" (click)="add(field)">Add</button>
+    </div>
+  </div>
+</div>

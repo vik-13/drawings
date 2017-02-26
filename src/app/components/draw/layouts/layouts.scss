@@ -1,6 +1,8 @@
 :host {
-  width: 240px;
+  width: 280px;
   background: white;
+
+  overflow: auto;
 }
 
 .mat-list-item {
@@ -10,6 +12,11 @@
     height: 100%;
     width: 100%;
     line-height: 40px;
+    padding: 0 8px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     cursor: default;
     user-select: none;

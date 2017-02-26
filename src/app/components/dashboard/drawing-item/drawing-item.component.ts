@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {AngularFire} from "angularfire2";
+import {ExportService} from "../../../shared/export/export.service";
 
 @Component({
   selector: 'drawing-item',
@@ -17,7 +18,12 @@ export class DrawingItemComponent {
   drawing: any = {};
   drawingSubscriber: any;
 
-  constructor(public af: AngularFire) {
+  constructor(private af: AngularFire, private exportService: ExportService) {
+  }
+
+  exportData(event) {
+    event.stopPropagation();
+    this.exportService.show(this.drawingLink.id);
   }
 
   remove(event) {

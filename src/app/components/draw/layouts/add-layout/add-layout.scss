@@ -1,0 +1,17 @@
+.add-layout-link {
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 16px;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #eaeaea;
+  }
+}
+
+.edit {
+  padding: 0 16px;
+}

@@ -2,7 +2,6 @@
   <md-list-item *ngFor="let item of list | async; trackBy: trackByFn"
                 [class.active]="selectedLayout == item.$key">
     <button md-icon-button
-            color="accent"
             (click)="changeVisibility(item.$key, !item.visibility)">
       <md-icon *ngIf="item.visibility">visibility</md-icon>
       <md-icon *ngIf="!item.visibility">visibility_off</md-icon>
@@ -14,6 +13,10 @@
       <md-icon>more_horiz</md-icon>
     </button>
     <md-menu #layoutSetting="mdMenu">
+      <button md-menu-item (click)="settings(item.$key)">
+        <md-icon>settings</md-icon>
+        <span>Settings</span>
+      </button>
       <button md-menu-item (click)="changeClosed(item.$key, !item.closed)">
         <md-icon *ngIf="item.closed">check_box</md-icon>
         <md-icon *ngIf="!item.closed">check_box_outline_blank</md-icon>
@@ -25,7 +28,5 @@
       </button>
     </md-menu>
   </md-list-item>
-  <md-list-item class="add-layout">
-    <a (click)="add()">Add layout</a>
-  </md-list-item>
 </md-list>
+<add-layout (onAdd)="add($event)"></add-layout>
