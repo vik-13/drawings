@@ -1,18 +1,18 @@
 <form (submit)="signIn(form)" #form="ngForm" novalidate autocomplete="off">
-  <div class="auth">
-    <h2>Sign in</h2>
-    <div class="auth-content">
-      <div class="form-container">
-        <label>Email:</label><input ngModel type="text" name="email" required>
-      </div>
-      <div class="form-container">
-        <label>Password:</label><input ngModel type="password" name="password" required>
-      </div>
-    </div>
-    <div class="form-actions">
-      <a [routerLink]="['/sign-up']">Sign up</a>
-      <div class="flex"></div>
-      <button>Sign in</button>
-    </div>
-  </div>
+  <md-card>
+    <md-card-title>Sign in</md-card-title>
+    <md-card-content>
+      <md-input-container>
+        <input mdInput ngModel name="email" placeholder="Email" required />
+      </md-input-container>
+      <md-input-container>
+        <input mdInput ngModel name="password" type="password" placeholder="Password" required />
+      </md-input-container>
+    </md-card-content>
+    <md-card-actions class="flex-block">
+      <a md-button color="primary" [routerLink]="['/sign-up']">Sign up</a>
+      <span class="flex"></span>
+      <button md-raised-button color="primary" type="submit">Sign in</button>
+    </md-card-actions>
+  </md-card>
 </form>

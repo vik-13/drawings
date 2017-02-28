@@ -1,13 +1,13 @@
+$color1: #962D3E;
+$color2: #343642;
+$color3: #979C9C;
+$color4: #F2EBC7;
+$color5: #348899;
+
 .auth-page {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-
-  .auth-container {
-    background-color: #ffffff;
-    width: 320px;
-    padding: 32px;
-    box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
-  }
+  background: $color4;
 }
